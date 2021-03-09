@@ -17,18 +17,26 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    @GetMapping("/index")
+    @GetMapping("/users")
     public String getUsers(Model model){
-
 
         List<User> userList = userRepository.findAll();
 
         model.addAttribute("users",userList);
 
+        return "users";
+    }
 
+    @GetMapping("/login")
+    public String login(){
 
-        return "index";
+        return "login";
+    }
 
+    @GetMapping("/signup")
+    public String signUp(){
+
+        return "signup";
     }
 
 }
