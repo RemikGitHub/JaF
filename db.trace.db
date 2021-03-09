@@ -1,0 +1,4 @@
+2021-03-08 20:31:15 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "USERS" nie istnieje
+Table "USERS" not found; SQL statement:
+insert into users (id, password, username) values (null, ?, ?) [42102-200]
