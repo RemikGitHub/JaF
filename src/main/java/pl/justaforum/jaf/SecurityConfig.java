@@ -15,7 +15,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public UserDetailsService userDetailsService(){
         UserDetails userDetails = User.withDefaultPasswordEncoder()
-                .username("user")
+                .username("marik")
                 .password("1234")
                 .roles("USER")
                 .build();
@@ -28,6 +28,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/index").permitAll()
                 .antMatchers("/myposts").authenticated()
                 .and()
-                .formLogin().permitAll();
+                .formLogin().permitAll()
+                .and()
+                .logout().permitAll();
     }
 }
