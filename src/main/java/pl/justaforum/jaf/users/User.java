@@ -17,14 +17,8 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @NonNull
     private String username;
-
-    @NonNull
     private String password;
-
-    @NonNull
     private String role;
 
     @Override

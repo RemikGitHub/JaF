@@ -1,42 +1,32 @@
 package pl.justaforum.jaf.users;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Controller
+@Service
 public class UserService {
 
-    UserRepository userRepository;
+    private UserRepository userRepository;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping("/users")
-    public String getUsers(Model model){
-
-        List<User> userList = userRepository.findAll();
-
-        model.addAttribute("users",userList);
-
-        return "users";
+    public List<User> getUsersList(){
+        return userRepository.findAll();
     }
 
-    @GetMapping("/login")
-    public String login(){
+    public void addUser(User user){
 
-        return "login";
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole("ROLE_USER");
+        userRepository.save(user);
+
     }
-
-    @GetMapping("/signup")
-    public String signUp(){
-
-        return "signup";
-    }
-
 }
