@@ -4,10 +4,12 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import pl.justaforum.jaf.posts.Post;
 
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,6 +22,9 @@ public class User implements UserDetails {
     private String username;
     private String password;
     private String role;
+
+    @OneToMany(mappedBy = "user")
+    private List<Post> posts;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

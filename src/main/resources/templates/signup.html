@@ -9,8 +9,8 @@
 <h2>Register</h2>
 
 <form th:action="@{/register}" method="post">
-    Username: <input type="text" name="username">
-    Password: <input type="text" name="password">
+    Username: <input type="text" name="username" required>
+    Password: <input type="password" name="password" required>
     <input type="submit" value="Create new account">
 </form>
 

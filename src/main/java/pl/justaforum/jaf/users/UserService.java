@@ -18,12 +18,13 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public List<User> getUsersList(){
+    public List<User> getUsersList() {
         return userRepository.findAll();
     }
 
-    public void addUser(User user){
+    public void addUser(User user) {
 
+        if (user.getPassword().equals("") || user.getUsername().equals("")) return;
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole("ROLE_USER");
         userRepository.save(user);

@@ -19,21 +19,21 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public String getUsers(Model model){
+    public String getUsers(Model model) {
 
-        model.addAttribute("users",userService.getUsersList());
+        model.addAttribute("users", userService.getUsersList());
 
         return "users";
     }
 
     @GetMapping("/login")
-    public String login(){
+    public String login() {
 
         return "login";
     }
 
     @GetMapping("/signup")
-    public String signUp(Model model){
+    public String signUp(Model model) {
 
         model.addAttribute("user", new User());
 
@@ -41,7 +41,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String signUp(User user){
+    public String signUp(User user) {
         userService.addUser(user);
         return "signup";
     }
