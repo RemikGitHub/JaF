@@ -15,7 +15,6 @@ public class Home {
         return "index";
     }
 
-
     @GetMapping("/myposts")
     public String myPosts(Principal principal, Model model) {
 

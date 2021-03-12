@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title>JaF </title>
 
@@ -74,7 +74,7 @@
     <section class="cta-section theme-bg-light py-5">
         <div class="container text-center">
             <h2 class="heading">Just a Forum - Regular forum for all topics.</h2>
-            <div class="intro">Welcome!</div>
+            <div class="intro">Welcome<span sec:authorize="isAuthenticated()"> <span sec:authentication="name"></span></span>!</div>
 
             <form class="signup-form form-inline justify-content-center pt-3">
                 <div class="form-group">
