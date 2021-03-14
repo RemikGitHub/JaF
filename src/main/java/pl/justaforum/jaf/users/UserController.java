@@ -5,17 +5,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import pl.justaforum.jaf.token.Token;
+import pl.justaforum.jaf.token.TokenService;
 
-import java.util.List;
+import java.util.Optional;
+
 
 @Controller
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
+    private final TokenService tokenService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, TokenService tokenService) {
+
         this.userService = userService;
+        this.tokenService = tokenService;
     }
 
     @GetMapping("/users")
@@ -33,17 +40,28 @@ public class UserController {
     }
 
     @GetMapping("/signup")
-    public String signUp(Model model) {
-
-        model.addAttribute("user", new User());
+    public String signUpForm(User user) {
 
         return "signup";
     }
 
-    @PostMapping("/register")
+    @PostMapping("/signup")
     public String signUp(User user) {
+
         userService.addUser(user);
-        return "signup";
+
+        return "redirect:/login";
     }
+
+    @GetMapping("/signup/confirm")
+    String confirmMail(@RequestParam("token") String token) {
+
+        Optional<Token> optionalToken = tokenService.findToken(token);
+
+        optionalToken.ifPresent(userService::confirmUser);
+
+        return "/login";
+    }
+
 
 }

@@ -8,35 +8,37 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import pl.justaforum.jaf.users.UserDetailsServiceImpl;
+import pl.justaforum.jaf.users.UserService;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Bean
-    public PasswordEncoder getPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    private UserDetailsServiceImpl userDetailsService;
+    private final PasswordEncoder passwordEncoder;
+    private final UserService userService;
 
     @Autowired
-    public SecurityConfig(UserDetailsServiceImpl userDetailsService) {
-        this.userDetailsService = userDetailsService;
+    public SecurityConfig(UserService userService, PasswordEncoder passwordEncoder) {
+
+        this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
+    @Autowired
+    protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userService)
+                .passwordEncoder(passwordEncoder);
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/index").permitAll()
+                .antMatchers("/").permitAll()
                 .antMatchers("/myposts").authenticated()
+                .antMatchers("/login/**", "/signup/**").permitAll()
                 .and()
-                .formLogin().permitAll().defaultSuccessUrl("/myposts")
+                .formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/myposts")
                 .and()
                 .logout().permitAll();
 
