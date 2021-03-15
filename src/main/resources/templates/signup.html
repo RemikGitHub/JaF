@@ -6,7 +6,7 @@
 <body>
 <form role="form" th:action="@{/signup}" th:method="post" th:object="${user}">
     <lable>Username</lable>
-    <input type="text" id="username" name="username" th:field="*{username}">
+    <input id="username" name="username" th:field="*{username}" type="text">
 
     <lable>Email</lable>
     <input type="text" id="email" name="email" th:field="*{email}">
@@ -16,5 +16,6 @@
 
     <input type="submit">
 </form>
+<a href="/">Back to home page</a>
 </body>
 </html>

@@ -9,8 +9,8 @@ spring.jpa.hibernate.ddl-auto=create
 
 spring.mail.host=smtp.gmail.com
 spring.mail.port=587
-spring.mail.username=justaforummail@gmail.com
-spring.mail.password=zaq1@WSX
+spring.mail.username= #<E-MAIL>
+spring.mail.password= #<PASSWORD>
 spring.mail.properties.mail.smtp.auth=true
 spring.mail.properties.mail.smtp.starttls.enable=true
 
