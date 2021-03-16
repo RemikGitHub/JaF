@@ -6,10 +6,10 @@
 <body>
 <form role="form" th:action="@{/login}" th:method="post">
     <lable>Username</lable>
-    <input type="text" id="username" name="username">
+    <input type="text" id="username" name="username" required>
 
     <lable>Password</lable>
-    <input type="password" id="password" name="password">
+    <input type="password" id="password" name="password" required>
 
     <input type="submit">
 </form>

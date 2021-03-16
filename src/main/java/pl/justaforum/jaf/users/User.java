@@ -5,11 +5,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import pl.justaforum.jaf.posts.Post;
+import pl.justaforum.jaf.validation.PasswordConstraint;
 
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import javax.validation.constraints.Email;
 
 @Getter
 @Setter
@@ -24,11 +26,13 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Email(message = "Please enter a valid email address.")
     private String email;
 
     @Column(unique = true)
     private String username;
 
+    @PasswordConstraint
     private String password;
 
     @Builder.Default

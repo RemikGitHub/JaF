@@ -5,6 +5,7 @@ import lombok.Setter;
 import pl.justaforum.jaf.users.User;
 
 import javax.persistence.*;
+
 import java.time.LocalDateTime;
 
 @Getter

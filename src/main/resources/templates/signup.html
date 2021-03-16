@@ -4,17 +4,28 @@
     <title>Sign up</title>
 </head>
 <body>
+
 <form role="form" th:action="@{/signup}" th:method="post" th:object="${user}">
-    <lable>Username</lable>
-    <input id="username" name="username" th:field="*{username}" type="text">
-
-    <lable>Email</lable>
-    <input type="text" id="email" name="email" th:field="*{email}">
-
-    <lable>Password</lable>
-    <input type="password" id="password" name="password" th:field="*{password}">
-
-    <input type="submit">
+    <table>
+        <tr>
+            <td>Username</td>
+            <td><input id="username" name="username" th:field="*{username}" type="text" required></td>
+            <td th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name Error</td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td><input type="text" id="email" name="email" th:field="*{email}" required></td>
+            <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td><input type="password" id="password" name="password" th:field="*{password}" required></td>
+            <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Create account"></td>
+        </tr>
+    </table>
 </form>
 <a href="/">Back to home page</a>
 </body>
