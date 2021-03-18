@@ -4,11 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.justaforum.jaf.token.Token;
 import pl.justaforum.jaf.token.TokenService;
+import pl.justaforum.jaf.validation.UsernameValidator;
 
 import javax.validation.Valid;
 import java.util.Optional;
@@ -17,14 +20,21 @@ import java.util.Optional;
 @Controller
 public class UserController {
 
+    private final UsernameValidator usernameValidator;
     private final UserService userService;
     private final TokenService tokenService;
 
     @Autowired
-    public UserController(UserService userService, TokenService tokenService) {
+    public UserController(UserService userService, TokenService tokenService, UsernameValidator usernameValidator) {
 
         this.userService = userService;
         this.tokenService = tokenService;
+        this.usernameValidator = usernameValidator;
+    }
+
+    @InitBinder("user")
+    private void bindValidator(WebDataBinder webDataBinder) {
+        webDataBinder.addValidators(usernameValidator);
     }
 
 

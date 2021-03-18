@@ -43,7 +43,13 @@ public class UserService implements UserDetailsService {
         tokenService.saveToken(token);
 
         sendConfirmationMail(user.getEmail(), token.getToken());
+
     }
+
+    public boolean usernameExists(String username) {
+        return userRepository.findByUsername(username).isPresent();
+    }
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -64,9 +70,10 @@ public class UserService implements UserDetailsService {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(userMail);
         mailMessage.setSubject("Confirm your account!");
-        mailMessage.setFrom("<MAIL>");
+        mailMessage.setFrom("justaforummail@gmail.com");
         mailMessage.setText(
-                "If you want to activate your account, click on the link. \n" + "http://localhost:8080/signup/confirm?token=" + token);
+                "If you want to activate your account, click on the link. \n"
+                        + "http://localhost:8080/signup/confirm?token=" + token);
 
         emailService.sendEmail(mailMessage);
     }
