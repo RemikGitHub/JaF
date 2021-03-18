@@ -1,8 +1,6 @@
 package pl.justaforum.jaf.users;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -42,8 +40,7 @@ public class UserService implements UserDetailsService {
         Token token = new Token(user);
         tokenService.saveToken(token);
 
-        sendConfirmationMail(user.getEmail(), token.getToken());
-
+        emailService.sendEmail(user.getEmail(), token.getToken());
     }
 
     public boolean usernameExists(String username) {
@@ -65,17 +62,5 @@ public class UserService implements UserDetailsService {
         tokenService.deleteToken(token.getId());
     }
 
-    void sendConfirmationMail(String userMail, String token) {
-
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo(userMail);
-        mailMessage.setSubject("Confirm your account!");
-        mailMessage.setFrom("justaforummail@gmail.com");
-        mailMessage.setText(
-                "If you want to activate your account, click on the link. \n"
-                        + "http://localhost:8080/signup/confirm?token=" + token);
-
-        emailService.sendEmail(mailMessage);
-    }
 
 }

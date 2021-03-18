@@ -6,10 +6,12 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import pl.justaforum.jaf.users.UserService;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
 
     private final PasswordEncoder passwordEncoder;
     private final UserService userService;
@@ -38,10 +40,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .defaultSuccessUrl("/myposts")
                 .and()
-                .logout().permitAll();
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/").deleteCookies("JSESSIONID")
+                .invalidateHttpSession(true);
 
-        //tymczasowe wylaczenie zabezpieczen zeby sie dostac do konsoli h2
+        /* disabling security to get to the h2 console
         http.csrf().disable();
         http.headers().disable();
+         */
     }
 }
