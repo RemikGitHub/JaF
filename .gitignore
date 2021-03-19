@@ -83,5 +83,6 @@ transaction-logs
 secrets.yml
 .gradletasknamecache
 .sts4-cache
-
+db.mv.db
+db.trace.db
 src/main/resources/application.properties
