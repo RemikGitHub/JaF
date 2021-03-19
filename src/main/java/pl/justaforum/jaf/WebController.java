@@ -15,7 +15,7 @@ public class WebController {
         return "index";
     }
 
-    @GetMapping("/myposts")
+    @GetMapping("/my-posts")
     public String myPosts(Principal principal, Model model) {
 
         model.addAttribute("name", principal.getName());

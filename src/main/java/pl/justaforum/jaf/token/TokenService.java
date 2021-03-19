@@ -18,7 +18,7 @@ public class TokenService {
         tokenRepository.save(token);
     }
 
-    public void deleteToken(Long id){
+    public void deleteToken(Long id) {
 
         tokenRepository.deleteById(id);
     }

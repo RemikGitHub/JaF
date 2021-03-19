@@ -33,12 +33,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/myposts").authenticated()
+                .antMatchers("/my-posts").authenticated()
                 .antMatchers("/login/**", "/signup/**").permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/myposts")
+                .defaultSuccessUrl("/my-posts")
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/").deleteCookies("JSESSIONID")
@@ -47,6 +47,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         /* disabling security to get to the h2 console
         http.csrf().disable();
         http.headers().disable();
-         */
+        */
     }
 }

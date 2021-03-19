@@ -5,7 +5,6 @@ import lombok.Setter;
 import pl.justaforum.jaf.users.User;
 
 import javax.persistence.*;
-
 import java.time.LocalDateTime;
 
 @Getter
@@ -18,6 +17,7 @@ public class Post {
     private Long id;
 
     private String title;
+
     private String content;
 
     @Column

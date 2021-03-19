@@ -8,10 +8,11 @@ import pl.justaforum.jaf.posts.Post;
 import pl.justaforum.jaf.validation.PasswordConstraint;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import javax.validation.constraints.Email;
 
 @Getter
 @Setter
@@ -29,6 +30,7 @@ public class User implements UserDetails {
     @Email(message = "Please enter a valid email address.")
     private String email;
 
+    @Size(min = 3, max = 20, message = "Username length must be between 3 and 20.")
     @Column(unique = true)
     private String username;
 

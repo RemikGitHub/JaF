@@ -36,8 +36,7 @@
         <div id="navigation" class="collapse navbar-collapse flex-column">
             <div class="profile-section pt-3 pt-lg-0">
 
-                <a href="/"><img class="profile-image mb-3 rounded-circle mx-auto" th:src="@{images/logo_white.png}"
-                                 alt="JaF"></a>
+                <a href="/"><img class="profile-image mb-3 rounded-circle mx-auto" th:src="@{images/logo_white.png}" alt="JaF"></a>
                 <!--//bio-->
                 <ul class="social-list list-inline py-3 mx-auto">
                     <li class="list-inline-item"><a href="#"><i class="fab fa-twitter fa-fw"></i></a></li>
@@ -54,7 +53,7 @@
                     <a class="nav-link" href="/"><i class="fas fa-home fa-fw mr-2"></i>Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="myposts"><i class="fas fa-bookmark fa-fw mr-2"></i>My Posts</a>
+                    <a class="nav-link" href="my-posts"><i class="fas fa-bookmark fa-fw mr-2"></i>My Posts</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="about.html"><i class="fas fa-user fa-fw mr-2"></i>About Us</a>
@@ -62,10 +61,10 @@
             </ul>
 
             <div class="my-2 my-md-3">
-                <a class="btn btn-primary" href="login">Log in</a>
-                <a class="btn btn-primary" href="signup">Sign up</a>
+                <span th:if="${#authorization.expression('!isAuthenticated()')}"><a class="btn btn-primary" href="login">Log in</a></span>
+                <span th:if="${#authorization.expression('!isAuthenticated()')}"><a class="btn btn-primary" href="signup">Sign up</a></span>
             </div>
-            <a class="btn btn-primary" href="logout">Logout</a>
+            <span th:if="${#authorization.expression('isAuthenticated()')}"><a class="btn btn-primary" href="logout">Logout</a></span>
         </div>
     </nav>
 </header>
@@ -73,7 +72,7 @@
 <div class="main-wrapper">
     <section class="cta-section theme-bg-light py-5">
         <div class="container text-center">
-            <h2 class="heading">Just a Forum - Regular forum for all topics.</h2>
+            <h2 class="heading">Just a Forum - Regular forum for developers.</h2>
             <div class="intro">Welcome<span sec:authorize="isAuthenticated()"> <span sec:authentication="name"></span></span>!</div>
 
             <form class="signup-form form-inline justify-content-center pt-3">
