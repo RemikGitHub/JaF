@@ -13,6 +13,16 @@ import pl.justaforum.service.UserService;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
+    public static final String[] PUBLIC_ENDPOINTS = {
+            "/",
+            "/login/**",
+            "/signup/**"
+    };
+
+    public static final String[] AUTH_ENDPOINTS = {
+            "/my-posts"
+    };
+
     private final PasswordEncoder passwordEncoder;
     private final UserService userService;
 
@@ -23,6 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.passwordEncoder = passwordEncoder;
     }
 
+
     @Autowired
     protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService)
@@ -32,9 +43,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/my-posts").authenticated()
-                .antMatchers("/login/**", "/signup/**").permitAll()
+                .antMatchers(PUBLIC_ENDPOINTS).permitAll()
+                .antMatchers(AUTH_ENDPOINTS).authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
@@ -47,6 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         /* disabling security to get to the h2 console
         http.csrf().disable();
         http.headers().disable();
-        */
+         */
+
     }
 }

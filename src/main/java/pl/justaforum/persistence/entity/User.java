@@ -5,20 +5,19 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import pl.justaforum.service.validation.PasswordConstraint;
+import pl.justaforum.service.validation.UniqueEmail;
+import pl.justaforum.service.validation.UniqueUsername;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
+@Builder
 @Entity(name = "users")
 public class User implements UserDetails {
 
@@ -26,23 +25,29 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Email(message = "Please enter a valid email address.")
+    @UniqueEmail
+    @Column(nullable = false)
     private String email;
 
-    @Size(min = 3, max = 20, message = "Username length must be between 3 and 20.")
-    @Column(unique = true)
+    @UniqueUsername
+    @Column(nullable = false, unique = true)
     private String username;
 
     @PasswordConstraint
+    @Column(nullable = false)
     private String password;
 
     @Builder.Default
-    private UserRole role = UserRole.ROLE_USER;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private UserRole role = UserRole.USER;
 
     @Builder.Default
+    @Column(nullable = false)
     private Boolean locked = false;
 
     @Builder.Default
+    @Column(nullable = false)
     private Boolean enabled = false;
 
     @OneToMany(mappedBy = "user")
@@ -50,17 +55,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority(role.name()));
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public String getUsername() {
-        return username;
+        return Collections.singleton(new SimpleGrantedAuthority(role.getAuthority()));
     }
 
     @Override
