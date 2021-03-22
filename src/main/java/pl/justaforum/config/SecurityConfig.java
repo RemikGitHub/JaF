@@ -14,7 +14,6 @@ import pl.justaforum.service.UserService;
 @AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-
     public static final String[] PUBLIC_ENDPOINTS = {
             "/",
             "/login/**",

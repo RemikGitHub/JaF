@@ -28,7 +28,8 @@ public class UserService implements UserDetailsService {
 
     public void addUser(User user) {
 
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        String encryptedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encryptedPassword);
         userRepository.save(user);
 
         Token token = new Token(user);

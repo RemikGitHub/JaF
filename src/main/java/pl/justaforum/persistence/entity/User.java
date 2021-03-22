@@ -4,7 +4,7 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import pl.justaforum.service.validation.PasswordConstraint;
+import pl.justaforum.service.validation.Password;
 import pl.justaforum.service.validation.UniqueEmail;
 import pl.justaforum.service.validation.UniqueUsername;
 
@@ -33,7 +33,7 @@ public class User implements UserDetails {
     @Column(nullable = false, unique = true)
     private String username;
 
-    @PasswordConstraint
+    @Password
     @Column(nullable = false)
     private String password;
 

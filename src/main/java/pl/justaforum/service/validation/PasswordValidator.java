@@ -6,9 +6,9 @@ import org.passay.*;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class PasswordValidator implements ConstraintValidator<PasswordConstraint, String> {
+public class PasswordValidator implements ConstraintValidator<Password, String> {
     @Override
-    public void initialize(PasswordConstraint constraintAnnotation) {
+    public void initialize(Password password) {
 
     }
 
