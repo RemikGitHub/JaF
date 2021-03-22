@@ -1,6 +1,6 @@
 package pl.justaforum.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.justaforum.persistence.entity.Token;
 import pl.justaforum.persistence.repository.TokenRepository;
@@ -8,13 +8,10 @@ import pl.justaforum.persistence.repository.TokenRepository;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class TokenService {
-    private final TokenRepository tokenRepository;
 
-    @Autowired
-    public TokenService(TokenRepository tokenRepository) {
-        this.tokenRepository = tokenRepository;
-    }
+    private final TokenRepository tokenRepository;
 
     public void saveToken(Token token) {
         tokenRepository.save(token);

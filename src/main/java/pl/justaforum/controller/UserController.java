@@ -1,5 +1,6 @@
 package pl.justaforum.controller;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,19 +16,13 @@ import pl.justaforum.service.UserService;
 import javax.validation.Valid;
 import java.util.Optional;
 
-
+@AllArgsConstructor
 @Controller
 public class UserController {
 
     private final UserService userService;
     private final TokenService tokenService;
 
-    @Autowired
-    public UserController(UserService userService, TokenService tokenService) {
-
-        this.userService = userService;
-        this.tokenService = tokenService;
-    }
 
     @GetMapping("/users")
     public String getUsers(Model model) {

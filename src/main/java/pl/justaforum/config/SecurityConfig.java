@@ -1,5 +1,6 @@
 package pl.justaforum.config;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -10,6 +11,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import pl.justaforum.service.UserService;
 
 @Configuration
+@AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
@@ -25,13 +27,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PasswordEncoder passwordEncoder;
     private final UserService userService;
-
-    @Autowired
-    public SecurityConfig(UserService userService, PasswordEncoder passwordEncoder) {
-
-        this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
-    }
 
 
     @Autowired
@@ -57,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         /* disabling security to get to the h2 console
         http.csrf().disable();
         http.headers().disable();
-         */
+        */
 
     }
 }

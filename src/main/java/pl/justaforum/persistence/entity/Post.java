@@ -1,6 +1,8 @@
 package pl.justaforum.persistence.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -8,7 +10,9 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity(name = "posts")
 public class Post {
 
     @Id

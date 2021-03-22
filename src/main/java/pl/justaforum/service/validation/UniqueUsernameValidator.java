@@ -1,15 +1,15 @@
 package pl.justaforum.service.validation;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import pl.justaforum.service.UserService;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+@AllArgsConstructor
 public class UniqueUsernameValidator implements ConstraintValidator<UniqueUsername, String> {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
     @Override
     public void initialize(UniqueUsername uniqueUsername) {

@@ -1,6 +1,6 @@
 package pl.justaforum.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,6 +13,7 @@ import pl.justaforum.persistence.repository.UserRepository;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
@@ -20,13 +21,6 @@ public class UserService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
 
-    @Autowired
-    public UserService(UserRepository userRepository, TokenService tokenService, PasswordEncoder passwordEncoder, EmailService emailService) {
-        this.userRepository = userRepository;
-        this.tokenService = tokenService;
-        this.passwordEncoder = passwordEncoder;
-        this.emailService = emailService;
-    }
 
     public List<User> getUsersList() {
         return userRepository.findAll();
