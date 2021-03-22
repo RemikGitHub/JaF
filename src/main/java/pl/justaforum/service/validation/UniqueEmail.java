@@ -17,7 +17,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Email(message = "Please enter a valid email address.")
 public @interface UniqueEmail {
 
-    String message() default "Invalid Username";
+    String message() default "Invalid Mail";
 
     Class<?>[] groups() default {};
 
