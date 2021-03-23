@@ -4,11 +4,9 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import pl.justaforum.service.validation.Password;
-import pl.justaforum.service.validation.UniqueEmail;
-import pl.justaforum.service.validation.UniqueUsername;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -25,15 +23,15 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @UniqueEmail
+    @NotEmpty
     @Column(nullable = false)
     private String email;
 
-    @UniqueUsername
+    @NotEmpty
     @Column(nullable = false, unique = true)
     private String username;
 
-    @Password
+    @NotEmpty
     @Column(nullable = false)
     private String password;
 

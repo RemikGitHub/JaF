@@ -5,7 +5,7 @@
 </head>
 <body>
 
-<form role="form" th:action="@{/signup}" th:method="post" th:object="${user}">
+<form role="form" th:action="@{/signup}" th:method="post" th:object="${userRegistrationDto}">
     <table>
         <tr>
             <td>Username</td>
@@ -21,6 +21,11 @@
             <td>Password</td>
             <td><input type="password" id="password" name="password" th:field="*{password}" required></td>
             <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
+        </tr>
+        <tr>
+            <td>Confirm password</td>
+            <td><input type="password" id="confirmPassword" name="confirmPassword" th:field="*{confirmPassword}" required></td>
+            <td th:if="${#fields.hasGlobalErrors()}" th:each="error : ${#fields.errors('global')}" th:text="${error}">Validation error</td>
         </tr>
         <tr>
             <td><input type="submit" value="Create account"></td>

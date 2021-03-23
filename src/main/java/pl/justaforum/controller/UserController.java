@@ -5,11 +5,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import pl.justaforum.model.UserRegistrationDto;
 import pl.justaforum.persistence.entity.Token;
 import pl.justaforum.service.TokenService;
-import pl.justaforum.persistence.entity.User;
 import pl.justaforum.service.UserService;
 
 import javax.validation.Valid;
@@ -37,20 +38,25 @@ public class UserController {
         return "login";
     }
 
+    @ModelAttribute("userRegistrationDto")
+    public UserRegistrationDto userRegistrationDto() {
+        return new UserRegistrationDto();
+    }
+
     @GetMapping("/signup")
-    public String signUpForm(User user) {
+    public String signUpForm() {
 
         return "signup";
     }
 
     @PostMapping("/signup")
-    public String signUp(@Valid User user , BindingResult bindingResult) {
+    public String signUp(@Valid @ModelAttribute("userRegistrationDto") UserRegistrationDto userRegistrationDto , BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             return "/signup";
         }
 
-        userService.addUser(user);
+        userService.addUser(userRegistrationDto);
 
         return "redirect:/login";
     }
