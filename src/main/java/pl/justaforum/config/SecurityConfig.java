@@ -43,10 +43,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 .defaultSuccessUrl("/my-posts")
+                .failureUrl("/login-error")
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/").deleteCookies("JSESSIONID")
-                .invalidateHttpSession(true);
+                .invalidateHttpSession(true)
+                .and()
+                .rememberMe().key("uniqueAndSecret");
 
         /* disabling security to get to the h2 console
         http.csrf().disable();

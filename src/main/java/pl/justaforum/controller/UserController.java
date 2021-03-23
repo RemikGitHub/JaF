@@ -38,6 +38,14 @@ public class UserController {
         return "login";
     }
 
+    @GetMapping("/login-error")
+    public String loginError(Model model) {
+        model.addAttribute("loginError", true);
+
+        return "login";
+    }
+
+
     @ModelAttribute("userRegistrationDto")
     public UserRegistrationDto userRegistrationDto() {
         return new UserRegistrationDto();
