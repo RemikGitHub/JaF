@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import pl.justaforum.model.UserRegistrationDto;
 import pl.justaforum.persistence.entity.Token;
 import pl.justaforum.service.TokenService;
@@ -32,20 +33,6 @@ public class UserController {
         return "users";
     }
 
-    @GetMapping("/login")
-    public String login() {
-
-        return "login";
-    }
-
-    @GetMapping("/login-error")
-    public String loginError(Model model) {
-        model.addAttribute("loginError", true);
-
-        return "login";
-    }
-
-
     @ModelAttribute("userRegistrationDto")
     public UserRegistrationDto userRegistrationDto() {
         return new UserRegistrationDto();
@@ -58,25 +45,54 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public String signUp(@Valid @ModelAttribute("userRegistrationDto") UserRegistrationDto userRegistrationDto , BindingResult bindingResult) {
+    public ModelAndView signUp(@Valid @ModelAttribute("userRegistrationDto") UserRegistrationDto userRegistrationDto , BindingResult bindingResult) {
+
+        ModelAndView modelAndView = new ModelAndView();
 
         if (bindingResult.hasErrors()) {
-            return "/signup";
+            modelAndView.setViewName("signup");
+
+            return modelAndView;
         }
 
         userService.addUser(userRegistrationDto);
 
-        return "redirect:/login";
+        modelAndView.addObject("message", "Activate your email: " + userRegistrationDto.getEmail());
+        modelAndView.setViewName("login");
+
+        return modelAndView;
     }
 
     @GetMapping("/signup/confirm")
-    String confirmMail(@RequestParam("token") String token) {
+    ModelAndView confirmMail(@RequestParam("token") String token) {
+
+        ModelAndView modelAndView = new ModelAndView("login");
 
         Optional<Token> optionalToken = tokenService.findToken(token);
 
-        optionalToken.ifPresent(userService::confirmUser);
+        if (optionalToken.isPresent()) {
+            userService.confirmUser(optionalToken.get());
+            modelAndView.addObject("message","Email address has been confirmed.");
 
-        return "/login";
+            return modelAndView;
+        }
+
+        modelAndView.addObject("message","The link is invalid or broken.");
+
+        return modelAndView;
+    }
+
+    @GetMapping("/login")
+    public String login() {
+
+        return "login";
+    }
+
+    @GetMapping("/login-error")
+    public String loginError(Model model) {
+        model.addAttribute("loginError", true);
+
+        return "login";
     }
 
 

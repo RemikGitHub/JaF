@@ -5,18 +5,23 @@
 </head>
 <body>
 <form role="form" th:action="@{/login}" th:method="post">
-    <lable>Username</lable>
+    <label>Username
     <input type="text" id="username" name="username" autofocus="autofocus" required>
+    </label>
 
-    <lable>Password</lable>
+    <label>Password
     <input type="password" id="password" name="password" required>
+    </label>
 
-    <lable>Remember Me:</lable>
+    <label>Remember Me:
     <input type="checkbox" name="remember-me" />
-
+    </label>
     <input type="submit" value="Sign in">
 </form>
-<lable th:if="${loginError}" class="error">Wrong user or password</lable><br>
+<label th:if="${loginError}" class="error">Wrong user or password<br></label>
 <a href="/">Back to home page</a>
+
+<p th:if="${message}"  th:text="${message}"></p>
+
 </body>
 </html>
