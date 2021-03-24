@@ -1,27 +1,42 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <title>Sign in</title>
-</head>
-<body>
-<form role="form" th:action="@{/login}" th:method="post">
-    <label>Username
-    <input type="text" id="username" name="username" autofocus="autofocus" required>
-    </label>
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-    <label>Password
-    <input type="password" id="password" name="password" required>
-    </label>
+    <title>Signin Template for Bootstrap</title>
 
-    <label>Remember Me:
-    <input type="checkbox" name="remember-me" />
-    </label>
-    <input type="submit" value="Sign in">
-</form>
-<label th:if="${loginError}" class="error">Wrong user or password<br></label>
-<a href="/">Back to home page</a>
+    <!-- Bootstrap css -->
+    <link th:href="@{bootstrap-4.6.0-dist\css\bootstrap.min.css}" rel="stylesheet">
 
-<p th:if="${message}"  th:text="${message}"></p>
+    <!-- Custom styles -->
+    <link th:href="@{css/login.css}" rel="stylesheet">
+  </head>
 
-</body>
+  <body class="text-center">
+
+    <form class="form-signin" role="form" th:action="@{/login}" th:method="post">
+      <img class="mb-4" th:src="@{images/logo_white.png}" alt="" width="72" height="72">
+      <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+      <label for="username" class="sr-only">Username</label>
+      <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
+      <label for="password" class="sr-only">Password</label>
+      <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+      <div class="checkbox mb-3">
+        <label>
+          <input type="checkbox" value="remember-me" name="remember-me"> Remember me
+        </label>
+      </div>
+      <button class="btn btn-lg btn-info btn-block" type="submit">Sign in</button>
+      <span th:if="${loginError}" class="error text-danger">Wrong username or password</span>
+      <p class="mt-5 mb-3 text-muted">Just a Forum</p>
+    </form>
+
+    <!-- Bootstrap script-->
+    <script th:src="@{bootstrap-4.6.0-dist\js\jquery-3.5.1.slim.min.js}"></script>
+    <script th:src="@{bootstrap-4.6.0-dist\js\bootstrap.bundle.min.js}"></script>
+
+  </body>
 </html>

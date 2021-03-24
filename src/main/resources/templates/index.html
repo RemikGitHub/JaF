@@ -1,243 +1,132 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
-<head>
-    <title>JaF </title>
-
-    <!-- Meta -->
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+  <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Forum">
-    <meta name="author" content="Remigiusz Ratajski, Łukasz Przyłucki, Dawid Piasecki, Piotr Balcerowski">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Forum for developers">
+    <meta name="author" content="Grupa 2">
 
+    <title>JaF</title>
 
-    <!-- FontAwesome JS-->
-    <script defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js"
-            integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7"
-            crossorigin="anonymous"></script>
+    <!-- Bootstrap css -->
+    <link th:href="@{bootstrap-4.6.0-dist\css\bootstrap.min.css}" rel="stylesheet">
 
-    <!-- Theme CSS -->
-    <link id="theme-style" rel="stylesheet" th:href="@{css/style.css}">
+    <!-- Custom styles -->
+    <link th:href="@{css/style.css}" rel="stylesheet">
+  </head>
 
-</head>
+  <body>
 
-<body>
-
-<header class="header text-center">
-    <!--<h1 class="blog-name pt-lg-4 mb-0"><a href="index.html">JaF</a></h1>-->
-
-    <nav class="navbar navbar-expand-lg navbar-dark">
-
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
-                aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+    <header>
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-info">
+        <a class="navbar-brand" href="/"><img th:src="@{images/logo_white.png}" width="30" height="30" class="d-inline-block mr-2 align-bottom" alt="">JaF</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
         </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-expanded="false" id="submenu" aria-haspopup="true"> Categories </a>
 
-        <div id="navigation" class="collapse navbar-collapse flex-column">
-            <div class="profile-section pt-3 pt-lg-0">
+              <div class="dropdown-menu" aria-labelledby="submenu">
 
-                <a href="/"><img class="profile-image mb-3 rounded-circle mx-auto" th:src="@{images/logo_white.png}" alt="JaF"></a>
-                <!--//bio-->
-                <ul class="social-list list-inline py-3 mx-auto">
-                    <li class="list-inline-item"><a href="#"><i class="fab fa-twitter fa-fw"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin-in fa-fw"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fab fa-github-alt fa-fw"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fab fa-stack-overflow fa-fw"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fab fa-codepen fa-fw"></i></a></li>
-                </ul><!--//social-list-->
-                <hr>
-            </div><!--//profile-section-->
+                <a class="dropdown-item" href="#"> Frontend</a>
+                <a class="dropdown-item" href="#"> Backend </a>
+                <a class="dropdown-item" href="#"> Mobile </a>
 
-            <ul class="navbar-nav flex-column text-left">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/"><i class="fas fa-home fa-fw mr-2"></i>Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="my-posts"><i class="fas fa-bookmark fa-fw mr-2"></i>My Posts</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="about.html"><i class="fas fa-user fa-fw mr-2"></i>About Us</a>
-                </li>
-            </ul>
+              </div>
 
-            <div class="my-2 my-md-3">
-                <span th:if="${#authorization.expression('!isAuthenticated()')}"><a class="btn btn-primary" href="login">Log in</a></span>
-                <span th:if="${#authorization.expression('!isAuthenticated()')}"><a class="btn btn-primary" href="signup">Sign up</a></span>
-            </div>
-            <span th:if="${#authorization.expression('isAuthenticated()')}"><a class="btn btn-primary" href="logout">Logout</a></span>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/my-posts">My posts</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About us</a>
+            </li>
+          </ul>
+          <form class="form-inline mt-2 mt-md-0">
+            <span sec:authorize="isAuthenticated()" sec:authentication="name" class="text-light font-weight-bold mr-2"></span>
+            <a th:if="${#authorization.expression('!isAuthenticated()')}" class="btn btn-info mr-2" href="/login" role="button">Log in</a>
+            <a th:if="${#authorization.expression('!isAuthenticated()')}" class="btn btn-info" href="/signup" role="button">Sign up</a>
+            <a th:if="${#authorization.expression('isAuthenticated()')}" class="btn btn-info" href="/logout" role="button">Logout</a>
+        </form>
         </div>
-    </nav>
-</header>
+      </nav>
+    </header>
 
-<div class="main-wrapper">
-    <section class="cta-section theme-bg-light py-5">
-        <div class="container text-center">
-            <h2 class="heading">Just a Forum - Regular forum for developers.</h2>
-            <div class="intro">Welcome<span sec:authorize="isAuthenticated()"> <span sec:authentication="name"></span></span>!</div>
+    <main role="main">
 
-            <form class="signup-form form-inline justify-content-center pt-3">
-                <div class="form-group">
-                    <label class="sr-only" for="semail">Your email</label>
-                    <input type="email" id="semail" name="semail1" class="form-control mr-md-1 semail"
-                           placeholder="Enter email">
-                </div>
-                <button type="submit" class="btn btn-primary">Subscribe</button>
-            </form>
-        </div><!--//container-->
-    </section>
-    <section class="blog-list px-3 py-5 p-md-5">
+      <section class="title text-center mt-5 mb-3 ">
         <div class="container">
-            <div class="item mb-5">
-                <div class="media">
-                    <img class="mr-3 img-fluid post-thumb d-none d-md-flex" src="images/blog/blog-post-thumb-1.jpg"
-                         alt="image">
-                    <div class="media-body">
-                        <h3 class="title mb-1"><a href="blog-post.html">Why Every Developer Should Have A Blog</a></h3>
-                        <div class="meta mb-1"><span class="date">Published 2 days ago</span><span class="time">5 min read</span><span
-                                class="comment"><a href="#">8 comments</a></span></div>
-                        <div class="intro">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-                            ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient
-                            montes, nascetur ridiculus mus. Donec quam felis, ultricies...
-                        </div>
-                        <a class="more-link" href="blog-post.html">Read more &rarr;</a>
-                    </div><!--//media-body-->
-                </div><!--//media-->
-            </div><!--//item-->
-            <div class="item mb-5">
-                <div class="media">
-                    <img class="mr-3 img-fluid post-thumb d-none d-md-flex" src="images/blog/blog-post-thumb-2.jpg"
-                         alt="image">
-                    <div class="media-body">
-                        <h3 class="title mb-1"><a href="blog-post.html">A Guide to Becoming a Full-Stack Developer</a>
-                        </h3>
-                        <div class="meta mb-1"><span class="date">Published 3 months ago</span><span class="time">3 min read</span><span
-                                class="comment"><a href="#">26 comments</a></span></div>
-                        <div class="intro">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-                            ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient
-                            montes, nascetur ridiculus mus. Donec quam felis, ultricies...
-                        </div>
-                        <a class="more-link" href="blog-post.html">Read more &rarr;</a>
-                    </div><!--//media-body-->
-                </div><!--//media-->
-            </div><!--//item-->
-
-            <div class="item mb-5">
-                <div class="media">
-                    <img class="mr-3 img-fluid post-thumb d-none d-md-flex" src="images/blog/blog-post-thumb-3.jpg"
-                         alt="image">
-                    <div class="media-body">
-                        <h3 class="title mb-1"><a href="blog-post.html">High Performance JavaScript</a></h3>
-                        <div class="meta mb-1"><span class="date">Published 1 month ago</span><span class="time">8 min read</span><span
-                                class="comment"><a href="#">12 comments</a></span></div>
-                        <div class="intro">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-                            ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient
-                            montes, nascetur ridiculus mus. Donec quam felis, ultricies...
-                        </div>
-                        <a class="more-link" href="blog-post.html">Read more &rarr;</a>
-                    </div><!--//media-body-->
-                </div><!--//media-->
-            </div><!--//item-->
-            <div class="item mb-5">
-                <div class="media">
-                    <img class="mr-3 img-fluid post-thumb d-none d-md-flex" src="images/blog/blog-post-thumb-4.jpg"
-                         alt="image">
-                    <div class="media-body">
-                        <h3 class="title mb-1"><a href="blog-post.html">Top 5 JavaScript Frameworks</a></h3>
-                        <div class="meta mb-1"><span class="date">Published 2 months ago</span><span class="time">15 min read</span><span
-                                class="comment"><a href="#">3 comments</a></span></div>
-                        <div class="intro">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-                            ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient
-                            montes, nascetur ridiculus mus. Donec quam felis, ultricies...
-                        </div>
-                        <a class="more-link" href="blog-post.html">Read more &rarr;</a>
-                    </div><!--//media-body-->
-                </div><!--//media-->
-            </div><!--//item-->
-
-            <div class="item mb-5">
-                <div class="media">
-                    <img class="mr-3 img-fluid post-thumb d-none d-md-flex" src="images/blog/blog-post-thumb-5.jpg"
-                         alt="image">
-                    <div class="media-body">
-                        <h3 class="title mb-1"><a href="blog-post.html">Learn React in 24 Hours</a></h3>
-                        <div class="meta mb-1"><span class="date">Published 2 months ago</span><span class="time">10 min read</span><span
-                                class="comment"><a href="#">23 comments</a></span></div>
-                        <div class="intro">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-                            ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient
-                            montes, nascetur ridiculus mus. Donec quam felis, ultricies...
-                        </div>
-                        <a class="more-link" href="blog-post.html">Read more &rarr;</a>
-                    </div><!--//media-body-->
-                </div><!--//media-->
-            </div><!--//item-->
-
-            <div class="item">
-                <div class="media">
-                    <img class="mr-3 img-fluid post-thumb d-none d-md-flex" src="images/blog/blog-post-thumb-6.jpg"
-                         alt="image">
-                    <div class="media-body">
-                        <h3 class="title mb-1"><a href="blog-post.html">About Remote Working</a></h3>
-                        <div class="meta mb-1"><span class="date">Published 3 months ago</span><span class="time">2 min read</span><span
-                                class="comment"><a href="#">1 comment</a></span></div>
-                        <div class="intro">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-                            ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient
-                            montes, nascetur ridiculus mus. Donec quam felis, ultricies...
-                        </div>
-                        <a class="more-link" href="blog-post.html">Read more &rarr;</a>
-                    </div><!--//media-body-->
-                </div><!--//media-->
-            </div><!--//item-->
-
-            <nav class="blog-nav nav nav-justified my-5">
-                <a class="nav-link-prev nav-item nav-link d-none rounded-left" href="#">Previous<i
-                        class="arrow-prev fas fa-long-arrow-alt-left"></i></a>
-                <a class="nav-link-next nav-item nav-link rounded" href="blog-list.html">Next<i
-                        class="arrow-next fas fa-long-arrow-alt-right"></i></a>
-            </nav>
-
+          <h1 class="title-heading">Just a Forum</h1>
+          <p class="lead text-muted mb-0">Welcome to the forum that is intended for developers.</p>
+          <p class="lead text-muted mt-0">Choose your category and go ahead.</p>
         </div>
-    </section>
+      </section>
+      <div class="album py-5">
+        <div class="container">
 
-    <footer class="footer text-center py-2 theme-bg-dark">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="card mb-4 text-white bg-secondary">
+                <img class="card-img-top" th:src="@{/images/frontend.png}" alt="Frontend">
+                <div class="card-body">
+                  <p class="card-text">Frontend</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <a class="btn btn-outline-info" href="#" role="button">View</a>
+                    <small class="text-muted">20-03-2019</small>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-        <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can buy the commercial license via our website: themes.3rdwavemedia.com */-->
-        <small class="copyright">Just a Forum 2021</small>
+            <div class="col-md-4">
+              <div class="card mb-4 text-white bg-secondary">
+                <img class="card-img-top" th:src="@{/images/backend.png}" alt="Backend">
+                <div class="card-body">
+                  <p class="card-text">Backend</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <a class="btn btn-outline-info" href="#" role="button">View</a>
+                    <small class="text-muted">20-03-2019</small>
+                  </div>
+                </div>
+              </div>
+            </div>
 
+            <div class="col-md-4">
+              <div class="card mb-4 text-white bg-secondary">
+                <img class="card-img-top" th:src="@{/images/mobile.jpg}" alt="Mobile">
+                <div class="card-body">
+                  <p class="card-text">Mobile</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <a class="btn btn-outline-info" href="#" role="button">View</a>
+                    <small class="text-muted">20-03-2019</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <footer class="footer text-muted">
+      <div class="container">
+        <p class="float-right">
+          <a href="#" class="text-info">Back to top</a>
+        </p>
+        <p>Just a Forum &copy;</p>
+      </div>
     </footer>
 
-</div><!--//main-wrapper-->
+    <!-- Bootstrap script-->
+    <script th:src="@{bootstrap-4.6.0-dist\js\jquery-3.5.1.slim.min.js}"></script>
+    <script th:src="@{bootstrap-4.6.0-dist\js\bootstrap.bundle.min.js}"></script>
 
-
-<!-- *****CONFIGURE STYLE (REMOVE ON YOUR PRODUCTION SITE)****** -->
-<div id="config-panel" class="config-panel d-none d-lg-block">
-    <div class="panel-inner">
-        <a id="config-trigger" class="config-trigger config-panel-hide text-center" href="#"><i
-                class="fas fa-cog fa-spin mx-auto" data-fa-transform="down-6"></i></a>
-        <h5 class="panel-title">Choose Colour</h5>
-        <ul id="color-options" class="list-inline mb-0">
-            <li class="theme-1 active list-inline-item"><a data-style="css/style.css" href="#"></a></li>
-            <li class="theme-2  list-inline-item"><a data-style="css/theme-2.css" href="#"></a></li>
-            <li class="theme-3  list-inline-item"><a data-style="css/theme-3.css" href="#"></a></li>
-            <li class="theme-4  list-inline-item"><a data-style="css/theme-4.css" href="#"></a></li>
-            <li class="theme-5  list-inline-item"><a data-style="css/theme-5.css" href="#"></a></li>
-            <li class="theme-6  list-inline-item"><a data-style="css/theme-6.css" href="#"></a></li>
-            <li class="theme-7  list-inline-item"><a data-style="css/theme-7.css" href="#"></a></li>
-            <li class="theme-8  list-inline-item"><a data-style="css/theme-8.css" href="#"></a></li>
-        </ul>
-        <a id="config-close" class="close" href="#"><i class="fa fa-times-circle"></i></a>
-    </div><!--//panel-inner-->
-</div><!--//configure-panel-->
-
-
-<!-- Javascript -->
-<script th:src="@{plugins/jquery-3.3.1.min.js}"></script>
-<script th:src="@{plugins/popper.min.js}"></script>
-<script th:src="@{plugins/bootstrap/js/bootstrap.min.js}"></script>
-
-<!-- Style Switcher (REMOVE ON YOUR PRODUCTION SITE) -->
-<script th:src="@{js/demo/style-switcher.js}"></script>
-
-
-</body>
-</html> 
-
+  </body>
+</html>

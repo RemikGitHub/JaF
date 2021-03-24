@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Sign in</title>
+</head>
+<body>
+<form role="form" th:action="@{/login}" th:method="post">
+    <label>Username
+    <input type="text" id="username" name="username" autofocus="autofocus" required>
+    </label>
+
+    <label>Password
+    <input type="password" id="password" name="password" required>
+    </label>
+
+    <label>Remember Me:
+    <input type="checkbox" name="remember-me" />
+    </label>
+    <input type="submit" value="Sign in">
+</form>
+<label th:if="${loginError}" class="error">Wrong user or password<br></label>
+<a href="/">Back to home page</a>
+
+<p th:if="${message}"  th:text="${message}"></p>
+
+</body>
+</html>
