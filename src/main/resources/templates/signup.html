@@ -31,7 +31,7 @@
 
                 <div class="mb-2">
                     <label for="username">Username</label>
-                    <input class="form-control" id="username" name="username" required th:classappend="${not #lists.isEmpty(#fields.errors('email'))} ? is-invalid"
+                    <input class="form-control" id="username" name="username" required th:classappend="${not #lists.isEmpty(#fields.errors('username'))} ? is-invalid"
                            th:field="*{username}" type="text">
                     <div class="invalid-feedback">
                         <p th:each="error: ${#fields.errors('username')}" th:text="${error}">Invalid data</p>
