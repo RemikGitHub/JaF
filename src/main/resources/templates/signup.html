@@ -1,37 +1,98 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="Forum for developers" name="description">
+    <meta content="Grupa 2" name="author">
+
     <title>Sign up</title>
+
+    <!-- Bootstrap css -->
+    <link rel="stylesheet" th:href="@{/bootstrap-4.6.0-dist/css/bootstrap.min.css}">
+
+    <!-- Custom styles -->
+    <link rel="stylesheet" th:href="@{/css/auth.css}">
 </head>
+
 <body>
 
-<form role="form" th:action="@{/signup}" th:method="post" th:object="${userRegistrationDto}">
-    <table>
-        <tr>
-            <td>Username</td>
-            <td><input id="username" name="username" th:field="*{username}" type="text" required></td>
-            <td th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name Error</td>
-        </tr>
-        <tr>
-            <td>Email</td>
-            <td><input type="text" id="email" name="email" th:field="*{email}" required></td>
-            <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</td>
-        </tr>
-        <tr>
-            <td>Password</td>
-            <td><input type="password" id="password" name="password" th:field="*{password}" required></td>
-            <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
-        </tr>
-        <tr>
-            <td>Confirm password</td>
-            <td><input type="password" id="confirmPassword" name="confirmPassword" th:field="*{confirmPassword}" required></td>
-            <td th:if="${#fields.hasGlobalErrors()}" th:each="error : ${#fields.errors('global')}" th:text="${error}">Validation error</td>
-        </tr>
-        <tr>
-            <td><input type="submit" value="Create account"></td>
-        </tr>
-    </table>
-</form>
-<a href="/">Back to home page</a>
+<div class="container">
+    <div class="py-5 text-center mt-5">
+        <h2>Create new account</h2>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-4 order-md-1 offset-md-4">
+
+            <form class="needs-validation" role="form" th:action="@{/signup}" th:method="post"
+                  th:object="${userRegistrationDto}">
+
+                <div class="mb-2">
+                    <label for="username">Username</label>
+                    <input class="form-control" id="username" name="username" required th:classappend="${not #lists.isEmpty(#fields.errors('email'))} ? is-invalid"
+                           th:field="*{username}" type="text">
+                    <div class="invalid-feedback">
+                        <p th:each="error: ${#fields.errors('username')}" th:text="${error}">Invalid data</p>
+                    </div>
+                </div>
+
+                <div class="mb-2">
+                    <label for="email">Email</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">@</span>
+                        </div>
+                        <input class="form-control" id="email" name="email" required th:field="*{email}" type="text" th:classappend="${not #lists.isEmpty(#fields.errors('email'))} ? is-invalid">
+                        <div class="invalid-feedback" style="width: 100%;">
+                            <p th:each="error: ${#fields.errors('email')}" th:text="${error}">Invalid data</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <hr class="mb-2">
+
+                <div class="mb-2">
+                    <label for="password">Password</label>
+                    <input class="form-control" id="password" name="password" required th:classappend="${not #lists.isEmpty(#fields.errors('password'))} ? is-invalid" th:field="*{password}"
+                           type="password">
+                    <div class="invalid-feedback">
+                        <p th:each="error: ${#fields.errors('password')}" th:text="${error}">Invalid data</p>
+                    </div>
+                </div>
+
+                <div class="mb-2">
+                    <label for="confirmPassword">Confirm password</label>
+                    <input class="form-control" id="confirmPassword" name="confirmPassword" required th:classappend="${not #lists.isEmpty(#fields.errors('global'))} ? is-invalid"
+                           th:field="*{confirmPassword}" type="password">
+                    <div class="invalid-feedback">
+                        <p th:each="error: ${#fields.errors('global')}" th:text="${error}">Invalid data</p>
+                    </div>
+                </div>
+
+
+                <button class="btn btn-info btn-lg btn-block mt-4" type="submit">Create</button>
+
+                <div class="btn-group btn-group-sm mt-3 btn-block" role="group">
+                    <a aria-disabled="true" class="btn btn-outline-info mr-2" href="/login" role="button">I have an
+                        account</a>
+                    <a aria-disabled="true" class="btn btn-outline-secondary" href="/" role="button">Back to home
+                        page</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer class="mb-5 pt-5 text-muted text-center text-small">
+        <p class="mb-1">Just a Forum</p>
+    </footer>
+</div>
+
+<!-- Bootstrap script-->
+<script th:src="@{/bootstrap-4.6.0-dist/js/jquery-3.5.1.slim.min.js}"></script>
+<script th:src="@{/bootstrap-4.6.0-dist/js/bootstrap.bundle.min.js}"></script>
+
 </body>
 </html>

@@ -18,7 +18,7 @@ public class EmailService {
 
     @Async
     public void sendEmail(String email, String token) {
-        String link = "<a href=\"http://localhost:8080/signup/confirm?token=" + token + "\"> Click here to active</a>";
+        String link = "<a href=\"http://localhost:8080/confirm?token=" + token + "\"> Click here to active</a>";
 
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         try {

@@ -57,27 +57,29 @@ public class UserController {
 
         userService.addUser(userRegistrationDto);
 
-        modelAndView.addObject("message", "Activate your email: " + userRegistrationDto.getEmail());
+        modelAndView.addObject("confirmStart", "Activate your email: " + userRegistrationDto.getEmail());
         modelAndView.setViewName("login");
 
         return modelAndView;
     }
 
-    @GetMapping("/signup/confirm")
+    @GetMapping("/confirm")
     ModelAndView confirmMail(@RequestParam("token") String token) {
 
-        ModelAndView modelAndView = new ModelAndView("login");
+        ModelAndView modelAndView = new ModelAndView();
 
         Optional<Token> optionalToken = tokenService.findToken(token);
 
         if (optionalToken.isPresent()) {
             userService.confirmUser(optionalToken.get());
-            modelAndView.addObject("message","Email address has been confirmed.");
+            modelAndView.addObject("confirmDone","Email address has been confirmed.");
+            modelAndView.setViewName("login");
 
             return modelAndView;
         }
 
-        modelAndView.addObject("message","The link is invalid or broken.");
+        modelAndView.addObject("confirmError","The link is invalid or broken.");
+        modelAndView.setViewName("login");
 
         return modelAndView;
     }
