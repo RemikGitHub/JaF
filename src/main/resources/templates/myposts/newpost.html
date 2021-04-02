@@ -45,15 +45,15 @@
 
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/my-posts">My posts</a>
+                    <a class="nav-link active" href="/my-posts">My posts</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="/about-us">About us</a>
+                    <a class="nav-link" href="/about-us">About us</a>
                 </li>
             </ul>
             <form class="form-inline mt-2 mt-md-0">
-                <span class="text-light font-weight-bold mr-2" sec:authentication="name"
-                      sec:authorize="isAuthenticated()"></span>
+                <a class="text-light font-weight-bold mr-2" sec:authentication="name"
+                   sec:authorize="isAuthenticated()"></a>
                 <a class="btn btn-info mr-2" href="/login" role="button"
                    th:if="${#authorization.expression('!isAuthenticated()')}">Log in</a>
                 <a class="btn btn-info" href="/signup" role="button"
@@ -67,48 +67,32 @@
 
 <main role="main">
 
-    <section class="title text-center mb-3 jumbotron">
-        <div class="container">
-            <h1 class="title-heading">About us</h1>
-            <p class="lead text-muted mb-0">Our Scrum Team</p>
-        </div>
-    </section>
-
     <div class="container py-5">
         <div class="row">
 
-            <div class="col-md-8 mb-4 offset-md-2">
+            <div class="col-12 col-md-8 offset-md-2">
                 <div class="card bg-secondary">
                     <div class="card-body">
-                        <h5 class="card-title">Remigusz Ratajski</h5>
-                        <p class="card-text">Scrum Master</p>
-                    </div>
-                </div>
-            </div>
+                        <h5 class="card-title">Add new post</h5>
 
-            <div class="col-md-8 mb-4 offset-md-2">
-                <div class="card bg-secondary">
-                    <div class="card-body">
-                        <h5 class="card-title">Łukasz Przyłucki</h5>
-                        <p class="card-text">HTML to jego pasja</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-8 mb-4 offset-md-2">
-                <div class="card bg-secondary">
-                    <div class="card-body">
-                        <h5 class="card-title">Dawid Piasecki</h5>
-                        <p class="card-text">"To, że jesteś wyjątkowy nie znaczy, że jesteś przydatny"</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-8 mb-4 offset-md-2">
-                <div class="card bg-secondary">
-                    <div class="card-body">
-                        <h5 class="card-title">Piotr Balcerowski</h5>
-                        <p class="card-text">Największy fan tiramisu</p>
+                        <form>
+                            <div class="form-group">
+                                <input class="form-control bg-grey" id="title" placeholder="title"
+                                       type="text">
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control bg-grey" id="category">
+                                    <option disabled selected hidden>Choose category</option>
+                                    <option value="frontend">Frontend</option>
+                                    <option value="backend">Backend</option>
+                                    <option value="mobile">Mobile</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control bg-grey" id="content" placeholder="Write your content" rows="16"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-info px-5">Add</button>
+                        </form>
                     </div>
                 </div>
             </div>

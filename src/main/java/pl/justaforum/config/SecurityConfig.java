@@ -21,7 +21,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     };
 
     public static final String[] AUTH_ENDPOINTS = {
-            "/my-posts"
+            "/my-posts/**"
     };
 
     private final PasswordEncoder passwordEncoder;

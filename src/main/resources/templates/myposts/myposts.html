@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="Forum for developers" name="description">
+    <meta content="Grupa 2" name="author">
+
+    <title>JaF</title>
+
+    <!-- Bootstrap css -->
+    <link rel="stylesheet" th:href="@{/bootstrap-4.6.0-dist/css/bootstrap.min.css}">
+
+    <!-- Custom styles -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-info">
+        <a class="navbar-brand" href="/"><img alt="" class="d-inline-block mr-2 align-bottom" height="30"
+                                              th:src="@{/images/logo_white.png}" width="30">JaF</a>
+        <button aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"
+                class="navbar-toggler"
+                data-target="#navbarCollapse" data-toggle="collapse" type="button">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle"
+                       data-toggle="dropdown"
+                       href="#" id="submenu" role="button"> Categories </a>
+
+                    <div aria-labelledby="submenu" class="dropdown-menu">
+
+                        <a class="dropdown-item" href="/frontend"> Frontend</a>
+                        <a class="dropdown-item" href="/backend"> Backend </a>
+                        <a class="dropdown-item" href="/mobile"> Mobile </a>
+
+                    </div>
+
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/my-posts">My posts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about-us">About us</a>
+                </li>
+            </ul>
+            <form class="form-inline mt-2 mt-md-0">
+                <span class="text-light font-weight-bold mr-2" sec:authentication="name"
+                      sec:authorize="isAuthenticated()"></span>
+                <a class="btn btn-info mr-2" href="/login" role="button"
+                   th:if="${#authorization.expression('!isAuthenticated()')}">Log in</a>
+                <a class="btn btn-info" href="/signup" role="button"
+                   th:if="${#authorization.expression('!isAuthenticated()')}">Sign up</a>
+                <a class="btn btn-info" href="/logout" role="button"
+                   th:if="${#authorization.expression('isAuthenticated()')}">Logout</a>
+            </form>
+        </div>
+    </nav>
+</header>
+
+<main role="main">
+
+    <section class="title text-center mb-3 jumbotron">
+        <div class="container">
+            <h1 class="title-heading" th:text="${#authentication.getPrincipal().getUsername()}"></h1>
+            <p class="lead text-muted mb-0">These are your posts.</p>
+        </div>
+    </section>
+
+    <div class="container py-5">
+        <div class="row">
+
+            <div class="col-md-8">
+
+                <div class="card bg-secondary mb-4">
+                    <h5 class="card-header bg-info">Title one</h5>
+                    <div class="card-body">
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at ornare
+                            ligula. Suspendisse commodo viverra velit, eu fermentum tortor sodales vitae. Pellentesque
+                            vulputate purus et libero porttitor, eu congue tellus scelerisque. Etiam molestie vestibulum
+                            est quis hendrerit. Ut aliquet lacus ipsum, in ultrices leo lacinia eu. Suspendisse ut lorem
+                            sit amet augue consectetur tempus.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a class="btn btn-outline-info" href="#">View all</a>
+                            <small class="text-muted">20-03-2021</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card bg-secondary mb-4">
+                    <h5 class="card-header bg-info">Title two</h5>
+                    <div class="card-body">
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at ornare
+                            ligula. Suspendisse commodo viverra velit, eu fermentum tortor sodales vitae. Pellentesque
+                            vulputate purus et libero porttitor, eu congue tellus scelerisque. Etiam molestie vestibulum
+                            est quis hendrerit. Ut aliquet lacus ipsum, in ultrices leo lacinia eu. Suspendisse ut lorem
+                            sit amet augue consectetur tempus.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a class="btn btn-outline-info" href="#">View all</a>
+                            <small class="text-muted">20-03-2021</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card bg-secondary mb-4">
+                    <h5 class="card-header bg-info">Title three</h5>
+                    <div class="card-body">
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at ornare
+                            ligula. Suspendisse commodo viverra velit, eu fermentum tortor sodales vitae. Pellentesque
+                            vulputate purus et libero porttitor, eu congue tellus scelerisque. Etiam molestie vestibulum
+                            est quis hendrerit. Ut aliquet lacus ipsum, in ultrices leo lacinia eu. Suspendisse ut lorem
+                            sit amet augue consectetur tempus.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a class="btn btn-outline-info" href="#">View all</a>
+                            <small class="text-muted">20-03-2021</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <aside class="col-md-4 order-first order-md-last mb-4">
+                <div class="position-sticky-top-70">
+
+                    <a class="btn btn-outline-success btn-lg btn-block mb-4" href="/my-posts/new-post" role="button">Add new post</a>
+
+                    <div class="card bg-secondary">
+                        <div class="card-body">
+                            <h5 class="card-title">Your account:</h5>
+                            <div class="card-text">
+                                <div class="d-flex justify-content-start">
+                                    <p>Username:</p>
+                                    <p class="ml-1" th:text="${#authentication.getPrincipal().getUsername()}"></p>
+                                </div>
+                                <div class="d-flex justify-content-start">
+                                    <p>Email:</p>
+                                    <p class="ml-1" th:text="${#authentication.getPrincipal().getEmail()}"></p>
+                                </div>
+
+                                <div class="btn-group btn-group-sm btn-block" role="group">
+                                    <a aria-disabled="true" class="btn btn-outline-info mr-2" href="#" role="button">Change
+                                        password</a>
+                                    <a aria-disabled="true" class="btn btn-outline-danger" href="#" role="button">Delete
+                                        account</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </aside>
+
+        </div>
+    </div>
+
+</main>
+
+<footer class="footer text-muted">
+    <div class="container">
+        <p class="float-right">
+            <a class="text-info" href="#">Back to top</a>
+        </p>
+        <p>Just a Forum &copy;</p>
+    </div>
+</footer>
+<!-- Bootstrap script-->
+<script th:src="@{/bootstrap-4.6.0-dist/js/jquery-3.5.1.slim.min.js}"></script>
+<script th:src="@{/bootstrap-4.6.0-dist/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

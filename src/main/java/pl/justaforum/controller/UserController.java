@@ -30,7 +30,7 @@ public class UserController {
 
         model.addAttribute("users", userService.getUsersList());
 
-        return "users";
+        return "auth/users";
     }
 
     @ModelAttribute("userRegistrationDto")
@@ -41,7 +41,7 @@ public class UserController {
     @GetMapping("/signup")
     public String signUpForm() {
 
-        return "signup";
+        return "auth/signup";
     }
 
     @PostMapping("/signup")
@@ -50,7 +50,7 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView();
 
         if (bindingResult.hasErrors()) {
-            modelAndView.setViewName("signup");
+            modelAndView.setViewName("auth/signup");
 
             return modelAndView;
         }
@@ -58,7 +58,7 @@ public class UserController {
         userService.addUser(userRegistrationDto);
 
         modelAndView.addObject("confirmStart", "Activate your email: " + userRegistrationDto.getEmail());
-        modelAndView.setViewName("login");
+        modelAndView.setViewName("auth/login");
 
         return modelAndView;
     }
@@ -73,13 +73,13 @@ public class UserController {
         if (optionalToken.isPresent()) {
             userService.confirmUser(optionalToken.get());
             modelAndView.addObject("confirmDone","Email address has been confirmed.");
-            modelAndView.setViewName("login");
+            modelAndView.setViewName("auth/login");
 
             return modelAndView;
         }
 
         modelAndView.addObject("confirmError","The link is invalid or broken.");
-        modelAndView.setViewName("login");
+        modelAndView.setViewName("auth/login");
 
         return modelAndView;
     }
@@ -87,14 +87,14 @@ public class UserController {
     @GetMapping("/login")
     public String login() {
 
-        return "login";
+        return "auth/login";
     }
 
     @GetMapping("/login-error")
     public String loginError(Model model) {
         model.addAttribute("loginError", true);
 
-        return "login";
+        return "auth/login";
     }
 
 

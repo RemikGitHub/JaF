@@ -4,6 +4,7 @@ main{
 body{
   background-color: #1B2127;
   font-family: 'Open Sans', sans-serif;
+  padding-top: 3rem;
 }
 
 main {
@@ -30,7 +31,7 @@ main {
 .title {
   padding-top: 30px;
   padding-bottom: 30px;
-  margin-bottom: 0;
+
   background-color: #1B2127;
   color: #fff;
 
@@ -64,10 +65,14 @@ main {
 
 .card-body{
   background-color: #1B2127;
-  /* color: #8E9198;*/
-  color: #909090;
+  color: #a1a1a1;
 }
 
+@media (min-width: 768px) {
+  .position-sticky-top-70 {
+    position: sticky; top: 70px;
+  }
+}
 
 footer {
   padding-top: 15px;
@@ -84,4 +89,34 @@ footer p {
 {
   height: 200px;
   object-fit: cover;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0);
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: #6c757d;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8e979f;
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+  background: #4a535b;
+}
+
+.bg-grey, .bg-grey:focus{
+  background-color: #262B30;
+  color: #a1a1a1;
 }

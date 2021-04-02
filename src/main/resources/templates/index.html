@@ -19,7 +19,7 @@
 <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-info">
         <a class="navbar-brand" href="/"><img alt="" class="d-inline-block mr-2 align-bottom" height="30"
-                                              th:src="@{images/logo_white.png}" width="30">JaF</a>
+                                              th:src="@{/images/logo_white.png}" width="30">JaF</a>
         <button aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"
                 class="navbar-toggler"
                 data-target="#navbarCollapse" data-toggle="collapse" type="button">
@@ -37,9 +37,9 @@
 
                     <div aria-labelledby="submenu" class="dropdown-menu">
 
-                        <a class="dropdown-item" href="#"> Frontend</a>
-                        <a class="dropdown-item" href="#"> Backend </a>
-                        <a class="dropdown-item" href="#"> Mobile </a>
+                        <a class="dropdown-item" href="/frontend"> Frontend</a>
+                        <a class="dropdown-item" href="/backend"> Backend </a>
+                        <a class="dropdown-item" href="/mobile"> Mobile </a>
 
                     </div>
 
@@ -67,7 +67,7 @@
 
 <main role="main">
 
-    <section class="title text-center mt-5 mb-3 jumbotron">
+    <section class="title text-center mb-3 jumbotron">
         <div class="container">
             <h1 class="title-heading">Just a Forum</h1>
             <p class="lead text-muted mb-0">Welcome to the forum that is intended for developers.</p>
@@ -84,7 +84,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Frontend</h5>
                         <p class="card-text">Layout and all about user interaction.</p>
-                        <a class="btn btn-outline-info" href="#">View</a>
+                        <a class="btn btn-outline-info" href="/frontend">View</a>
                     </div>
                 </div>
             </div>
@@ -95,7 +95,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Backend</h5>
                         <p class="card-text">Api, databases, servers and much more.</p>
-                        <a class="btn btn-outline-info" href="#">View</a>
+                        <a class="btn btn-outline-info" href="/backend">View</a>
                     </div>
                 </div>
             </div>
@@ -106,7 +106,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Mobile</h5>
                         <p class="card-text">Posts about mobile app development.</p>
-                        <a class="btn btn-outline-info" href="#">View</a>
+                        <a class="btn btn-outline-info" href="/mobile">View</a>
                     </div>
                 </div>
             </div>
