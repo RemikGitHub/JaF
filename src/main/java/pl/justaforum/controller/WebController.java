@@ -22,4 +22,10 @@ public class WebController {
         return "myposts";
     }
 
+    @GetMapping("/about-us")
+    public String aboutUs() {
+
+        return "about";
+    }
+
 }

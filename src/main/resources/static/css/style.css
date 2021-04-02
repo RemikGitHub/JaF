@@ -1,5 +1,13 @@
-body{
+main{
   background-color: #262B30;
+}
+body{
+  background-color: #1B2127;
+  font-family: 'Open Sans', sans-serif;
+}
+
+main {
+  min-height: 500px;
 }
 
 .dropdown-menu{
@@ -46,9 +54,18 @@ body{
   max-width: 40rem;
 }
 
+.card-header{
+  color: #ffffff;
+}
+
+.card-title{
+  color: #ffffff;
+}
+
 .card-body{
   background-color: #1B2127;
-  color: #fff;
+  /* color: #8E9198;*/
+  color: #909090;
 }
 
 
@@ -62,8 +79,6 @@ footer p {
   margin-bottom: 0;
   margin-top: 0;
 }
-
-
 
 .card-img-top
 {
