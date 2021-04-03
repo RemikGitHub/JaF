@@ -51,10 +51,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .rememberMe().key("uniqueAndSecret");
 
-        /* disabling security to get to the h2 console
+        //disabling security to get to the h2 console
         http.csrf().disable();
         http.headers().disable();
-        */
 
     }
 }

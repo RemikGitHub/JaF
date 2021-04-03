@@ -50,6 +50,10 @@ public class UserService implements UserDetailsService {
 
     public boolean emailExists(String email) { return userRepository.findByEmail(email).isPresent(); }
 
+    public User getUserEntityByUsername(String username) throws UsernameNotFoundException {
+
+        return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("The user \"" + username + "\" does not exist."));
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

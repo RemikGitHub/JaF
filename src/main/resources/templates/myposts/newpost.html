@@ -75,21 +75,33 @@
                     <div class="card-body">
                         <h5 class="card-title">Add new post</h5>
 
-                        <form>
+                        <div class="alert alert-success my-4" role="alert" th:if="${confirm}">
+                            <h4 class="alert-heading">Well done!</h4>
+                            <p th:text="${confirm}"></p>
+                        </div>
+
+                        <form class="needs-validation" role="form" th:action="@{/my-posts/new-post}" th:method="post"
+                              th:object="${newPostDto}">
                             <div class="form-group">
                                 <input class="form-control bg-grey" id="title" placeholder="title"
-                                       type="text">
+                                       type="text" autocomplete="off" required th:classappend="${not #lists.isEmpty(#fields.errors('title'))} ? is-invalid"
+                                       th:field="*{title}">
+                                <div class="invalid-feedback">
+                                    <p th:each="error: ${#fields.errors('title')}" th:text="${error}">Invalid data</p>
+                                </div>
                             </div>
                             <div class="form-group">
-                                <select class="form-control bg-grey" id="category">
-                                    <option disabled selected hidden>Choose category</option>
-                                    <option value="frontend">Frontend</option>
-                                    <option value="backend">Backend</option>
-                                    <option value="mobile">Mobile</option>
+                                <select name="postCategory" th:field="*{postCategory}" class="form-control bg-grey" id="category">
+                                    <option th:each="postCategory : ${T(pl.justaforum.persistence.entity.PostCategory).values()}"
+                                            th:value="${postCategory}" th:text="${postCategory}"></option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <textarea class="form-control bg-grey" id="content" placeholder="Write your content" rows="16"></textarea>
+                                <textarea class="form-control bg-grey" id="content" placeholder="Write your content" rows="16" required th:classappend="${not #lists.isEmpty(#fields.errors('content'))} ? is-invalid"
+                                          th:field="*{content}"></textarea>
+                                <div class="invalid-feedback">
+                                    <p th:each="error: ${#fields.errors('content')}" th:text="${error}">Invalid data</p>
+                                </div>
                             </div>
                             <button type="submit" class="btn btn-info px-5">Add</button>
                         </form>
