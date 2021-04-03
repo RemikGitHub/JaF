@@ -22,10 +22,19 @@ public class PostConverter {
     }
 
     public static PostDto createPostDto(Post source) {
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss dd-MM-yyyy");
+
+        int charsInContent = 350;
+
+        String shortContent = source.getContent();
+        if (shortContent.length() > charsInContent) {
+            shortContent = shortContent.substring(0,charsInContent) + "...";
+        }
+
         return PostDto.builder()
                 .title(source.getTitle())
-                .content(source.getContent())
+                .content(shortContent)
                 .postCategory(source.getPostCategory())
                 .publishedDateTime(source.getPublishedDateTime().format(formatter))
                 .username(source.getUser().getUsername())
