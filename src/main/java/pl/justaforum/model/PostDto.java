@@ -18,6 +18,6 @@ public class PostDto {
     private String title;
     private String content;
     private PostCategory postCategory;
-    private LocalDateTime publishedDateTime;
-    private User user;
+    private String publishedDateTime;
+    private String username;
 }

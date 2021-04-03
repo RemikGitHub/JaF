@@ -3,6 +3,7 @@ package pl.justaforum.controller;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -24,7 +25,9 @@ public class PostController {
     private final UserService userService;
 
     @GetMapping("/my-posts")
-    public String myPosts() {
+    public String myPosts(Model model) {
+
+        model.addAttribute("myPosts", postService.getLoggedUserPosts());
 
         return "myposts/myposts";
     }

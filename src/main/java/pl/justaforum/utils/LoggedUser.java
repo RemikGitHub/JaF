@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class LoggedUser {
 
+
     public static String getLoggedUsername(){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -14,4 +15,5 @@ public class LoggedUser {
             return principal.toString();
         }
     }
+
 }
