@@ -79,6 +79,11 @@
 
             <div class="col-md-8">
 
+                <div class="alert alert-info mb-4" role="alert" th:if="${#lists.isEmpty(myPosts)}">
+                    <h4 class="alert-heading">Well</h4>
+                    <p>You have no posts. If you want to fill this space, click on "Add new post".</p>
+                </div>
+
                 <div class="card bg-secondary mb-4" th:each="post: ${myPosts}">
                     <h5 class="card-header bg-info" th:text="${post.getTitle()}"></h5>
                     <div class="card-body">
@@ -97,7 +102,8 @@
             <aside class="col-md-4 order-first order-md-last mb-4">
                 <div class="position-sticky-top-70">
 
-                    <a class="btn btn-outline-success btn-lg btn-block mb-4" href="/my-posts/new-post" role="button">Add new post</a>
+                    <a class="btn btn-outline-success btn-lg btn-block mb-4" href="/my-posts/new-post" role="button">Add
+                        new post</a>
 
                     <div class="card bg-secondary">
                         <div class="card-body">

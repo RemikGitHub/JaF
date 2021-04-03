@@ -1,7 +1,6 @@
 package pl.justaforum.controller;
 
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import pl.justaforum.model.NewPostDto;
+import pl.justaforum.persistence.entity.PostCategory;
 import pl.justaforum.service.PostService;
 import pl.justaforum.service.UserService;
 import pl.justaforum.utils.LoggedUser;
@@ -67,19 +67,25 @@ public class PostController {
     }
 
     @GetMapping("/backend")
-    public String backend() {
+    public String backend(Model model) {
+
+        model.addAttribute("backendPosts", postService.findByCategory(PostCategory.BACKEND));
 
         return "posts/backend";
     }
 
     @GetMapping("/frontend")
-    public String frontend() {
+    public String frontend(Model model) {
+
+        model.addAttribute("frontendPosts", postService.findByCategory(PostCategory.FRONTEND));
 
         return "posts/frontend";
     }
 
     @GetMapping("/mobile")
-    public String mobile() {
+    public String mobile(Model model) {
+
+        model.addAttribute("mobilePosts", postService.findByCategory(PostCategory.MOBILE));
 
         return "posts/mobile";
     }
