@@ -25,6 +25,20 @@ public class PostConverter {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm:ss");
 
+        return PostDto.builder()
+                .id(source.getId())
+                .title(source.getTitle())
+                .content(source.getContent())
+                .postCategory(source.getPostCategory())
+                .publishedDateTime(source.getPublishedDateTime().format(formatter))
+                .username(source.getUser().getUsername())
+                .build();
+    }
+
+    public static PostDto createShortPostDto(Post source) {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm:ss");
+
         int charsInContent = 350;
 
         String shortContent = source.getContent();
@@ -33,6 +47,7 @@ public class PostConverter {
         }
 
         return PostDto.builder()
+                .id(source.getId())
                 .title(source.getTitle())
                 .content(shortContent)
                 .postCategory(source.getPostCategory())

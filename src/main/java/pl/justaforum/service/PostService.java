@@ -22,16 +22,20 @@ public class PostService {
     public List<PostDto> getLoggedUserPosts() {
         List<Post> result = postRepository.findByUserId_UsernameOrderByPublishedDateTimeDesc(LoggedUser.getLoggedUsername());
 
-        return result.stream().map(PostConverter::createPostDto).collect(Collectors.toList());
+        return result.stream().map(PostConverter::createShortPostDto).collect(Collectors.toList());
     }
 
     public Long getLoggedNumberPost() {
         return postRepository.countByUserId_Username(LoggedUser.getLoggedUsername());
     }
 
+    public PostDto getPostById(Long id) throws RuntimeException{
+        return PostConverter.createPostDto(postRepository.findById(id).orElseThrow(() -> new RuntimeException("Post not found.")));
+    }
+
     public List<PostDto> findByCategory(PostCategory postCategory) {
         List<Post> result = postRepository.findByPostCategoryOrderByPublishedDateTimeDesc(postCategory);
-        return result.stream().map(PostConverter::createPostDto).collect(Collectors.toList());
+        return result.stream().map(PostConverter::createShortPostDto).collect(Collectors.toList());
     }
 
     public void addPost(NewPostDto request) {

@@ -73,24 +73,17 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="card-title">Sample blog post</h2>
-                        <p class="card-subtitle text-muted mb-2">January 1, 2014 by <a href="#">Mark</a></p>
-                        <p class="card-text">Integer sit amet nisi congue, cursus turpis quis, facilisis nisi.
-                            Pellentesque scelerisque, lorem non ullamcorper tempus, dolor leo iaculis nulla, a porttitor
-                            ipsum quam vitae elit. Etiam blandit ipsum dui, vel ullamcorper sem euismod in. Quisque non
-                            velit turpis. Phasellus sit amet velit ex. Aliquam eleifend, nibh sed rutrum interdum,
-                            turpis justo. Nulla vel urna nec nisl tempor maximus. Nunc dapibus quam nec massa tempor,
-                            ornare congue elit dignissim. Cras nec nisl auctor, posuere tellus eu, aliquam eros. Sed sed
-                            convallis risus. Morbi semper convallis leo sit amet eleifend. Nam varius at lacus nec
-                            fermentum. Vivamus sed laoreet lectus, at hendrerit erat. Donec rutrum ullamcorper augue,
-                            vitae varius velit semper quis. Phasellus nisi ex, condimentum sed risus sed, pellentesque
-                            convallis diam.</p>
+                        <h2 class="card-title" th:text="${post.getTitle()}"></h2>
+                        <strong><a href="#" th:text="${post.getUsername()}" class="mb-1"></a></strong>
+                        <p class="card-subtitle text-muted mb-2" th:text="${post.getPublishedDateTime()}"></p>
+                        <p class="card-text" th:text="${post.getContent()}"></p>
                     </div>
                 </div>
 
 
                 <div class="my-3 p-3 rounded shadow-sm">
                     <h6 class="border-bottom border-gray pb-2 mb-0 text-light">Coments</h6>
+
                     <div class="media pt-3">
                         <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
                             <p class="badge badge-info text-wrap mb-1">domino</p>

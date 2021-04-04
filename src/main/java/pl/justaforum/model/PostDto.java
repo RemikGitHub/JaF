@@ -2,11 +2,7 @@ package pl.justaforum.model;
 
 import lombok.*;
 import pl.justaforum.persistence.entity.PostCategory;
-import pl.justaforum.persistence.entity.User;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -15,6 +11,7 @@ import java.time.LocalDateTime;
 @Builder
 public class PostDto {
 
+    private Long id;
     private String title;
     private String content;
     private PostCategory postCategory;

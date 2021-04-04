@@ -93,7 +93,7 @@
                             </div>
                             <span class="d-block" th:text="${post.getContent()}"></span>
                             <div class="d-flex justify-content-between">
-                                <a class="btn btn-sm btn-outline-info align-self-end" href="#">View all</a>
+                                <a class="btn btn-sm btn-outline-info align-self-end" th:href="@{/single-post/{id}(id=${post.getId()})}">View all</a>
                                 <div class="d-flex flex-column">
                                     <a class="text-muted" th:text="${post.getUsername()}"></a>
                                     <small class="text-muted" th:text="${post.getPublishedDateTime()}"></small>

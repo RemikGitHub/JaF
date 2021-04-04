@@ -116,7 +116,7 @@
             <div class="col-md-8 col-lg-9 col-xl-10 px-0">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="alert alert-info mt-4 mt-md-0 col-12" role="alert" th:if="${#lists.isEmpty(myPosts)}">
+                        <div class="alert alert-info mt-4 mt-md-0 col-md-6 offset-md-3" role="alert" th:if="${#lists.isEmpty(myPosts)}">
                             <h4 class="alert-heading">Well</h4>
                             <p>You have no posts. If you want to fill this space, click on "Add new post".</p>
                         </div>
@@ -126,7 +126,7 @@
                                 <div class="card-body">
                                     <p class="card-text" th:text="${post.getContent()}"></p>
                                     <div class="d-flex justify-content-between ">
-                                        <a class="btn btn-outline-info" href="#">View all</a>
+                                        <a class="btn btn-outline-info" th:href="@{/single-post/{id}(id=${post.getId()})}">View all</a>
                                         <div class="d-flex align-content-center align-items-end flex-column">
                                             <small class="text-muted" th:text="${post.getUsername()}"></small>
                                             <small class="text-muted" th:text="${post.getPublishedDateTime()}"></small>
