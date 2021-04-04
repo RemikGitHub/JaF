@@ -23,7 +23,7 @@ public class PostConverter {
 
     public static PostDto createPostDto(Post source) {
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss dd-MM-yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm:ss");
 
         int charsInContent = 350;
 
