@@ -55,6 +55,12 @@ main {
   max-width: 40rem;
 }
 
+.rounded{
+  background-color: #1B2127;
+  color: #a1a1a1;
+  font-size: 18px;
+}
+
 .card-header{
   color: #ffffff;
 }

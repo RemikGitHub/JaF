@@ -89,4 +89,10 @@ public class PostController {
 
         return "posts/mobile";
     }
+
+    @GetMapping("/single-post")
+    public String getSinglePost() {
+
+        return "posts/singlepost";
+    }
 }
