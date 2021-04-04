@@ -25,6 +25,10 @@ public class PostService {
         return result.stream().map(PostConverter::createPostDto).collect(Collectors.toList());
     }
 
+    public Long getLoggedNumberPost() {
+        return postRepository.countByUserId_Username(LoggedUser.getLoggedUsername());
+    }
+
     public List<PostDto> findByCategory(PostCategory postCategory) {
         List<Post> result = postRepository.findByPostCategoryOrderByPublishedDateTimeDesc(postCategory);
         return result.stream().map(PostConverter::createPostDto).collect(Collectors.toList());

@@ -55,6 +55,12 @@ main {
   max-width: 40rem;
 }
 
+hr{
+  height:2px;
+  border-width:0;
+  background-color:white
+}
+
 .rounded{
   background-color: #1B2127;
   color: #a1a1a1;

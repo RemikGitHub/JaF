@@ -28,6 +28,7 @@ public class PostController {
     public String myPosts(Model model) {
 
         model.addAttribute("myPosts", postService.getLoggedUserPosts());
+        model.addAttribute("numberOfPosts",postService.getLoggedNumberPost());
 
         return "myposts/myposts";
     }
