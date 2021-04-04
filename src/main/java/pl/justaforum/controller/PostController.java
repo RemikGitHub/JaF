@@ -95,7 +95,12 @@ public class PostController {
     @GetMapping("/single-post/{id}")
     public String getSinglePost(@PathVariable Long id, Model model) {
 
-        model.addAttribute("post", postService.getPostById(id));
+        try{
+            model.addAttribute("post", postService.getPostById(id));
+        }
+        catch (RuntimeException e){
+            model.addAttribute("errorMessage", e.getMessage());
+        }
 
         return "posts/singlepost";
     }
