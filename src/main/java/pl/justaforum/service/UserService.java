@@ -44,16 +44,16 @@ public class UserService implements UserDetailsService {
         emailService.sendEmail(user.getEmail(), token.getToken());
     }
 
+    public User getUserEntityByUsername(String username) throws UsernameNotFoundException {
+
+        return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("The user \"" + username + "\" does not exist."));
+    }
+
     public boolean usernameExists(String username) {
         return userRepository.findByUsername(username).isPresent();
     }
 
     public boolean emailExists(String email) { return userRepository.findByEmail(email).isPresent(); }
-
-    public User getUserEntityByUsername(String username) throws UsernameNotFoundException {
-
-        return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("The user \"" + username + "\" does not exist."));
-    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

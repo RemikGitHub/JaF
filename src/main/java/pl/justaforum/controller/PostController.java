@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+import pl.justaforum.model.NewCommentDto;
 import pl.justaforum.model.NewPostDto;
 import pl.justaforum.persistence.entity.PostCategory;
+import pl.justaforum.service.CommentService;
 import pl.justaforum.service.PostService;
 import pl.justaforum.service.UserService;
 import pl.justaforum.utils.LoggedUser;
@@ -24,6 +26,7 @@ public class PostController {
 
     private final PostService postService;
     private final UserService userService;
+    private final CommentService commentService;
 
     @GetMapping("/my-posts")
     public String myPosts(Model model) {
@@ -97,12 +100,33 @@ public class PostController {
 
         try{
             model.addAttribute("post", postService.getPostById(id));
+            model.addAttribute("comments", commentService.getPostComments(id));
         }
         catch (RuntimeException e){
             model.addAttribute("errorMessage", e.getMessage());
         }
 
         return "posts/singlepost";
+    }
+
+    @ModelAttribute("newCommentDto")
+    public NewCommentDto newCommentDto() {
+        return new NewCommentDto();
+    }
+
+    @PostMapping("/single-post/{id}")
+    public String addComment(@PathVariable Long id, @ModelAttribute("newCommentDto") NewCommentDto newCommentDto) {
+
+        newCommentDto.setWriteDateTime(LocalDateTime.now());
+
+        String loggedUsername = LoggedUser.getLoggedUsername();
+        newCommentDto.setUser(userService.getUserEntityByUsername(loggedUsername));
+
+        newCommentDto.setPost(postService.getPostEntityById(id));
+
+        commentService.addComment(newCommentDto);
+
+        return "redirect:/single-post/"+id;
     }
 
 }

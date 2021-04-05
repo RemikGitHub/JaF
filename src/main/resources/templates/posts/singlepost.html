@@ -87,30 +87,32 @@
                 </div>
 
                 <div class="my-3 p-3 rounded shadow-sm">
+
+                    <form class="needs-validation" role="form" th:action="@{/single-post/{id}(id=${post.getId()})}" th:method="post"
+                          th:object="${newCommentDto}">
+                    <div class="input-group mb-3">
+                        <textarea class="form-control bg-light" id="content" placeholder="Write comment" rows="1" th:classappend="${not #lists.isEmpty(#fields.errors('content'))} ? is-invalid"
+                                  th:field="*{content}"></textarea>
+                        <div class="invalid-feedback">
+                            <p th:each="error: ${#fields.errors('content')}" th:text="${error}">Invalid data</p>
+                        </div>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-info" type="submit">Add comment</button>
+                        </div>
+                    </div>
+                    </form>
+
                     <h6 class="border-bottom border-gray pb-2 mb-0 text-light">Coments</h6>
 
-                    <div class="media pt-3">
+                    <p class="mt-2 " th:if="${#lists.isEmpty(comments)}">There are no comments on this post.</p>
+
+                    <div class="media pt-3" th:each="comment: ${comments}">
                         <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                            <p class="badge badge-info text-wrap mb-1">domino</p>
-                            <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ut orci eget augue molestie
-                                gravida ac nec erat.</p>
+                            <p class="badge badge-info text-wrap mb-1" th:text="${comment.getUsername()}"></p><small class="ml-2 text-muted" th:text="${comment.getWriteDateTime()}"></small>
+                            <p class="mb-0" th:text="${comment.getContent()}"></p>
                         </div>
                     </div>
 
-                    <div class="media pt-3">
-                        <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                            <p class="badge badge-info text-wrap mb-1">marik</p>
-                            <p class="mb-0">Mauris ut orci eget augue molestie.</p>
-                        </div>
-                    </div>
-
-                    <div class="media pt-3">
-                        <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                            <p class="badge badge-info text-wrap mb-1">domino</p>
-                            <p class="mb-0"> Consectetur adipiscing elit. Mauris ut orci eget augue molestie
-                                gravida ac.</p>
-                        </div>
-                    </div>
 
                 </div>
 

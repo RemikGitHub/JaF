@@ -1,11 +1,13 @@
 package pl.justaforum.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pl.justaforum.model.NewPostDto;
 import pl.justaforum.model.PostDto;
 import pl.justaforum.persistence.entity.Post;
 import pl.justaforum.persistence.entity.PostCategory;
+import pl.justaforum.persistence.entity.User;
 import pl.justaforum.persistence.repository.PostRepository;
 import pl.justaforum.utils.LoggedUser;
 import pl.justaforum.utils.PostConverter;
@@ -23,6 +25,11 @@ public class PostService {
         List<Post> result = postRepository.findByUserId_UsernameOrderByPublishedDateTimeDesc(LoggedUser.getLoggedUsername());
 
         return result.stream().map(PostConverter::createShortPostDto).collect(Collectors.toList());
+    }
+
+    public Post getPostEntityById(Long id) throws UsernameNotFoundException {
+
+        return postRepository.findById(id).orElseThrow(() -> new RuntimeException("Post not found."));
     }
 
     public Long getLoggedNumberPost() {

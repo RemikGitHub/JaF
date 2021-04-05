@@ -5,15 +5,14 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity(name = "posts")
-public class Post {
+@Entity(name = "comments")
+public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,24 +20,16 @@ public class Post {
 
     @NotEmpty
     @Column(nullable = false)
-    private String title;
-
-    @NotEmpty
-    @Lob
-    @Column(length=10000, nullable = false)
     private String content;
 
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private PostCategory postCategory;
-
-    @Column(nullable = false)
-    private LocalDateTime publishedDateTime;
+    private LocalDateTime writeDateTime;
 
     @ManyToOne
     @JoinColumn(name="user_id", nullable=false)
     private User user;
 
-    @OneToMany(mappedBy = "post")
-    private List<Comment> comments;
+    @ManyToOne
+    @JoinColumn(name="post_id", nullable=false)
+    private Post post;
 }
