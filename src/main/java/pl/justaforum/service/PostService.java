@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pl.justaforum.model.NewPostDto;
 import pl.justaforum.model.PostDto;
+import pl.justaforum.persistence.entity.Comment;
 import pl.justaforum.persistence.entity.Post;
 import pl.justaforum.persistence.entity.PostCategory;
 import pl.justaforum.persistence.entity.User;
@@ -13,6 +14,7 @@ import pl.justaforum.utils.LoggedUser;
 import pl.justaforum.utils.PostConverter;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -49,5 +51,17 @@ public class PostService {
 
         Post post = PostConverter.createPost(request);
         postRepository.save(post);
+    }
+
+    public void delPostById(Long id) {
+
+        Optional<Post> optionalPost = postRepository.findById(id);
+
+        if (optionalPost.isPresent()){
+            if (optionalPost.get().getUser().getUsername().equals(LoggedUser.getLoggedUsername())){
+                postRepository.deleteById(id);
+            }
+        }
+
     }
 }

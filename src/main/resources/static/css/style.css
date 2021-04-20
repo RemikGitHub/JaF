@@ -86,7 +86,7 @@ hr{
   }
 }
 
-#options::after {
+.options::after {
   display:none;
 }
 

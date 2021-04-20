@@ -79,7 +79,28 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="card-title" th:text="${post.getTitle()}"></h2>
+
+                        <div class="d-flex justify-content-between">
+                            <h2 class="card-title" th:text="${post.getTitle()}"></h2>
+
+                            <div class="btn-group btn-group-sm" th:if="${#authorization.expression('isAuthenticated()')} and (${post.getUsername()} == ${#authentication.getPrincipal().getUsername()})">
+                                <button aria-expanded="false" aria-haspopup="true"
+                                        class="btn btn-outline-secondary dropdown-toggle p-0 pb-1 h-50 options"
+                                        data-toggle="dropdown" type="button">
+                                    <svg class="bi bi-three-dots-vertical" fill="currentColor" height="16" viewBox="0 0 16 16"
+                                         width="16" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                                    </svg>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <form class="needs-validation" role="form"
+                                          th:action="@{/single-post/del/{id}(id=${post.getId()})}"
+                                          th:method="post">
+                                        <button class="dropdown-item" type="submit">delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
 
                         <strong><a class="mb-1" href="#" th:text="${post.getUsername()}"></a></strong>
                         <p class="card-subtitle text-muted mb-2" th:text="${post.getPublishedDateTime()}"></p>
@@ -117,20 +138,28 @@
                             <div class="d-flex justify-content-between">
 
                                 <div>
-                                <p class="badge badge-info text-wrap mb-1" th:text="${comment.getUsername()}"></p><small
-                                    class="ml-2 text-muted" th:text="${comment.getWriteDateTime()}"></small>
+                                    <p class="badge badge-info text-wrap mb-1" th:text="${comment.getUsername()}"></p>
+                                    <small
+                                            class="ml-2 text-muted" th:text="${comment.getWriteDateTime()}"></small>
                                 </div>
 
                                 <div class="btn-group btn-group-sm">
                                     <button aria-expanded="false" aria-haspopup="true"
-                                            class="btn btn-outline-secondary dropdown-toggle p-0 pb-1" data-toggle="dropdown" type="button" id="options">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                                            class="btn btn-outline-secondary dropdown-toggle p-0 pb-1 options"
+                                            data-toggle="dropdown" type="button">
+                                        <svg class="bi bi-three-dots-vertical" fill="currentColor" height="16"
+                                             viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
                                         </svg>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <form class="needs-validation" role="form" th:action="@{/single-post/del/comment/{id}(id=${comment.getId()})}" th:method="post">
-                                            <button class="dropdown-item" type="submit" th:if="${#authorization.expression('isAuthenticated()')} and (${comment.getUsername()} == ${#authentication.getPrincipal().getUsername()})">delete</button>
+                                        <form class="needs-validation" role="form"
+                                              th:action="@{/single-post/del/comment/{id}(id=${comment.getId()})}"
+                                              th:method="post">
+                                            <button class="dropdown-item" th:if="${#authorization.expression('isAuthenticated()')} and (${comment.getUsername()} == ${#authentication.getPrincipal().getUsername()})"
+                                                    type="submit">
+                                                delete
+                                            </button>
                                         </form>
                                     </div>
                                 </div>

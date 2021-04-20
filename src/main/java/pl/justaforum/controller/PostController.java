@@ -131,12 +131,19 @@ public class PostController {
         return "redirect:/single-post/"+id;
     }
 
+    @PostMapping("/single-post/del/{id}")
+    public String delPost(@PathVariable Long id) {
+
+        postService.delPostById(id);
+
+        return "redirect:/my-posts";
+    }
+
     @PostMapping("/single-post/del/comment/{id}")
     public String delComment(@PathVariable Long id, HttpServletRequest request) {
 
         commentService.delCommentById(id);
 
-//        return "redirect:/single-post/"+id;
         String referer = request.getHeader("Referer");
         return "redirect:"+ referer;
     }
