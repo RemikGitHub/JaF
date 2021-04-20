@@ -9,6 +9,7 @@ import lombok.*;
 @Builder
 public class CommentDto {
 
+    private Long id;
     private String content;
     private String writeDateTime;
     private String username;

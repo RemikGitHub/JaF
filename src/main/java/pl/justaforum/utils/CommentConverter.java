@@ -28,6 +28,7 @@ public class CommentConverter {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm:ss");
 
         return CommentDto.builder()
+                .id(source.getId())
                 .content(source.getContent())
                 .writeDateTime(source.getWriteDateTime().format(formatter))
                 .username(source.getUser().getUsername())

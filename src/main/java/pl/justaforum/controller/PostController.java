@@ -17,6 +17,7 @@ import pl.justaforum.service.PostService;
 import pl.justaforum.service.UserService;
 import pl.justaforum.utils.LoggedUser;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 
@@ -114,7 +115,7 @@ public class PostController {
         return new NewCommentDto();
     }
 
-    @PostMapping("/single-post/{id}")
+    @PostMapping("/single-post/add/{id}")
     public String addComment(@PathVariable Long id, @ModelAttribute("newCommentDto") NewCommentDto newCommentDto) {
 
         newCommentDto.setWriteDateTime(LocalDateTime.now());
@@ -126,7 +127,18 @@ public class PostController {
 
         commentService.addComment(newCommentDto);
 
+
         return "redirect:/single-post/"+id;
+    }
+
+    @PostMapping("/single-post/del/comment/{id}")
+    public String delComment(@PathVariable Long id, HttpServletRequest request) {
+
+        commentService.delCommentById(id);
+
+//        return "redirect:/single-post/"+id;
+        String referer = request.getHeader("Referer");
+        return "redirect:"+ referer;
     }
 
 }

@@ -7,8 +7,10 @@ import pl.justaforum.model.NewCommentDto;
 import pl.justaforum.persistence.entity.Comment;
 import pl.justaforum.persistence.repository.CommentRepository;
 import pl.justaforum.utils.CommentConverter;
+import pl.justaforum.utils.LoggedUser;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,5 +27,17 @@ public class CommentService {
 
         Comment comment = CommentConverter.createComment(request);
         commentRepository.save(comment);
+    }
+
+    public void delCommentById(Long id) {
+
+        Optional<Comment> optionalComment = commentRepository.findById(id);
+
+        if (optionalComment.isPresent()){
+            if (optionalComment.get().getUser().getUsername().equals(LoggedUser.getLoggedUsername())){
+                commentRepository.delete(optionalComment.get());
+            }
+        }
+
     }
 }
