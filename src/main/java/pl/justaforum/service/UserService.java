@@ -75,7 +75,7 @@ public class UserService implements UserDetailsService {
         tokenService.deleteToken(token.getId());
     }
 
-    public void delUserById(Long id) {
+    public void delUserById(Long id) throws RuntimeException {
 
         Optional<User> optionalUser = userRepository.findById(id);
 

@@ -29,15 +29,15 @@ public class CommentService {
         commentRepository.save(comment);
     }
 
-    public void delCommentById(Long id) {
+    public void delCommentById(Long id) throws RuntimeException {
 
         Optional<Comment> optionalComment = commentRepository.findById(id);
 
-        if (optionalComment.isPresent()){
-            if (optionalComment.get().getUser().getUsername().equals(LoggedUser.getLoggedUsername())){
-                commentRepository.delete(optionalComment.get());
-            }
-        }
+        if (optionalComment.isEmpty()) throw new RuntimeException("The comment does not exist.");
+        if (!optionalComment.get().getUser().getUsername().equals(LoggedUser.getLoggedUsername())) throw new RuntimeException("You are not authorized!");
+
+        commentRepository.delete(optionalComment.get());
+
 
     }
 }

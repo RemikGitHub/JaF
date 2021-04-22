@@ -53,14 +53,13 @@ public class PostService {
         postRepository.save(post);
     }
 
-    public void delPostById(Long id) {
+    public void delPostById(Long id) throws RuntimeException {
 
         Optional<Post> optionalPost = postRepository.findById(id);
 
-        if (optionalPost.isPresent()){
-            if (optionalPost.get().getUser().getUsername().equals(LoggedUser.getLoggedUsername())){
-                postRepository.deleteById(id);
-            }
-        }
+        if (optionalPost.isEmpty()) throw new RuntimeException("The post does not exist.");
+        if (!optionalPost.get().getUser().getUsername().equals(LoggedUser.getLoggedUsername())) throw new RuntimeException("You are not authorized!");
+
+        postRepository.deleteById(id);
     }
 }
