@@ -11,9 +11,11 @@ import pl.justaforum.model.UserRegistrationDto;
 import pl.justaforum.persistence.entity.Token;
 import pl.justaforum.persistence.entity.User;
 import pl.justaforum.persistence.repository.UserRepository;
+import pl.justaforum.utils.LoggedUser;
 import pl.justaforum.utils.UserConverter;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,6 +31,10 @@ public class UserService implements UserDetailsService {
     public List<UserDto> getUsersList() {
         List<User> result = userRepository.findAll();
         return result.stream().map(UserConverter::createUserDto).collect(Collectors.toList());
+    }
+
+    public UserDto getUserByUsername(String username){
+        return UserConverter.createUserDto(userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("The user \"" + username + "\" does not exist.")));
     }
 
     public void addUser(UserRegistrationDto request) {
@@ -69,5 +75,14 @@ public class UserService implements UserDetailsService {
         tokenService.deleteToken(token.getId());
     }
 
+    public void delUserById(Long id) {
 
+        Optional<User> optionalUser = userRepository.findById(id);
+
+        if( optionalUser.isEmpty() ) throw new UsernameNotFoundException("The user does not exist.");
+        if ( !optionalUser.get().getUsername().equals(LoggedUser.getLoggedUsername())) throw new RuntimeException("You are not authorized!");
+
+        userRepository.deleteById(id);
+
+    }
 }

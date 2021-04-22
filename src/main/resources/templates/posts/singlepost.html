@@ -110,7 +110,7 @@
 
                 <div class="my-3 p-3 rounded shadow-sm">
 
-                    <form class="needs-validation" role="form" th:action="@{/single-post/add/{id}(id=${post.getId()})}"
+                    <form class="needs-validation" role="form" th:action="@{/single-post/add/comment/{id}(id=${post.getId()})}"
                           th:method="post"
                           th:object="${newCommentDto}">
                         <div class="input-group mb-3">

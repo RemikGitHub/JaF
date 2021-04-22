@@ -105,8 +105,11 @@
                                 <p class="mb-2 text-light">Settings:</p>
                                 <a class="btn btn-outline-info btn-block mb-2" href="#" role="button">Change
                                     password</a>
-                                <a class="btn btn-outline-danger btn-block" href="#" role="button">Delete
-                                    account</a>
+                                <button class="btn btn-outline-danger btn-block" data-toggle="modal"
+                                        th:attr="data-target='#deleteUser'+${user.getId()}"
+                                        type="button">Delete account
+                                </button>
+
                             </div>
                         </div>
                     </div>
@@ -167,11 +170,38 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
-
 </main>
+
+<!-- Modal -->
+<div aria-hidden="true" aria-labelledby="deleteUserLabel" class="modal fade" role="dialog"
+     tabindex="-1" th:attr="id='deleteUser'+${user.getId()}">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content text-light" style="background-color: #1b2127;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteUserLabel">Delete Account</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete your account?
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-info" data-dismiss="modal" type="button">No</button>
+
+                <form role="form"
+                      th:action="@{/users/del/{id}(id=${user.getId()})}"
+                      th:method="post">
+                    <button class="btn btn-danger" type="submit">Yes</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <footer class="footer text-muted">
     <div class="container">

@@ -32,8 +32,9 @@ public class PostController {
     @GetMapping("/my-posts")
     public String myPosts(Model model) {
 
+        model.addAttribute("user",userService.getUserByUsername(LoggedUser.getLoggedUsername()));
         model.addAttribute("myPosts", postService.getLoggedUserPosts());
-        model.addAttribute("numberOfPosts",postService.getLoggedNumberPost());
+        model.addAttribute("numberOfPosts", postService.getLoggedNumberPost());
 
         return "myposts/myposts";
     }
@@ -50,7 +51,7 @@ public class PostController {
     }
 
     @PostMapping("/my-posts/new-post")
-    public ModelAndView addNewPost(@Valid @ModelAttribute("newPostDto") NewPostDto newPostDto , BindingResult bindingResult) {
+    public ModelAndView addNewPost(@Valid @ModelAttribute("newPostDto") NewPostDto newPostDto, BindingResult bindingResult) {
 
         ModelAndView modelAndView = new ModelAndView();
 
@@ -99,15 +100,22 @@ public class PostController {
     @GetMapping("/single-post/{id}")
     public String getSinglePost(@PathVariable Long id, Model model) {
 
-        try{
+        try {
             model.addAttribute("post", postService.getPostById(id));
             model.addAttribute("comments", commentService.getPostComments(id));
-        }
-        catch (RuntimeException e){
+        } catch (RuntimeException e) {
             model.addAttribute("errorMessage", e.getMessage());
         }
 
         return "posts/singlepost";
+    }
+
+    @PostMapping("/single-post/del/{id}")
+    public String delPost(@PathVariable Long id) {
+
+        postService.delPostById(id);
+
+        return "redirect:/my-posts";
     }
 
     @ModelAttribute("newCommentDto")
@@ -115,7 +123,7 @@ public class PostController {
         return new NewCommentDto();
     }
 
-    @PostMapping("/single-post/add/{id}")
+    @PostMapping("/single-post/add/comment/{id}")
     public String addComment(@PathVariable Long id, @ModelAttribute("newCommentDto") NewCommentDto newCommentDto) {
 
         newCommentDto.setWriteDateTime(LocalDateTime.now());
@@ -127,16 +135,7 @@ public class PostController {
 
         commentService.addComment(newCommentDto);
 
-
-        return "redirect:/single-post/"+id;
-    }
-
-    @PostMapping("/single-post/del/{id}")
-    public String delPost(@PathVariable Long id) {
-
-        postService.delPostById(id);
-
-        return "redirect:/my-posts";
+        return "redirect:/single-post/" + id;
     }
 
     @PostMapping("/single-post/del/comment/{id}")
@@ -145,7 +144,7 @@ public class PostController {
         commentService.delCommentById(id);
 
         String referer = request.getHeader("Referer");
-        return "redirect:"+ referer;
+        return "redirect:" + referer;
     }
 
 }
