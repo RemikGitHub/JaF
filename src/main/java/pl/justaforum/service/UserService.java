@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import pl.justaforum.model.UserChangePasswordDto;
 import pl.justaforum.model.UserDto;
 import pl.justaforum.model.UserRegistrationDto;
 import pl.justaforum.persistence.entity.Token;
@@ -27,7 +28,6 @@ public class UserService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
 
-
     public List<UserDto> getUsersList() {
         List<User> result = userRepository.findAll();
         return result.stream().map(UserConverter::createUserDto).collect(Collectors.toList());
@@ -48,6 +48,14 @@ public class UserService implements UserDetailsService {
         tokenService.saveToken(token);
 
         emailService.sendEmail(user.getEmail(), token.getToken());
+    }
+
+    public void changePassword(UserChangePasswordDto request) {
+
+        User user = getUserEntityByUsername(LoggedUser.getLoggedUsername());
+        String encryptedPassword = passwordEncoder.encode(request.getNewPassword());
+        user.setPassword(encryptedPassword);
+        userRepository.save(user);
     }
 
     public User getUserEntityByUsername(String username) throws UsernameNotFoundException {

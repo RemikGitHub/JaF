@@ -6,12 +6,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import pl.justaforum.model.UserChangePasswordDto;
 import pl.justaforum.model.UserRegistrationDto;
 import pl.justaforum.persistence.entity.Token;
 import pl.justaforum.service.TokenService;
 import pl.justaforum.service.UserService;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Optional;
 
@@ -43,7 +43,7 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public ModelAndView signUp(@Valid @ModelAttribute("userRegistrationDto") UserRegistrationDto userRegistrationDto , BindingResult bindingResult) {
+    public ModelAndView signUp(@Valid @ModelAttribute("userRegistrationDto") UserRegistrationDto userRegistrationDto, BindingResult bindingResult) {
 
         ModelAndView modelAndView = new ModelAndView();
 
@@ -70,13 +70,13 @@ public class UserController {
 
         if (optionalToken.isPresent()) {
             userService.confirmUser(optionalToken.get());
-            modelAndView.addObject("confirmDone","Email address has been confirmed.");
+            modelAndView.addObject("confirmDone", "Email address has been confirmed.");
             modelAndView.setViewName("auth/login");
 
             return modelAndView;
         }
 
-        modelAndView.addObject("confirmError","The link is invalid or broken.");
+        modelAndView.addObject("confirmError", "The link is invalid or broken.");
         modelAndView.setViewName("auth/login");
 
         return modelAndView;
@@ -108,6 +108,34 @@ public class UserController {
         userService.delUserById(id);
 
         return "redirect:/logout";
+    }
+
+    @ModelAttribute("userChangePasswordDto")
+    public UserChangePasswordDto userChangePasswordDto() {
+        return new UserChangePasswordDto();
+    }
+
+    @GetMapping("/change-password")
+    public String changePasswordForm() {
+
+        return "auth/change-password";
+    }
+
+    @PostMapping("/change-password")
+    public ModelAndView changePassword(@Valid @ModelAttribute("userChangePasswordDto") UserChangePasswordDto userChangePasswordDto, BindingResult bindingResult) {
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("auth/change-password");
+
+        if (bindingResult.hasErrors()) {
+
+            return modelAndView;
+        }
+
+        userService.changePassword(userChangePasswordDto);
+        modelAndView.addObject("success", "You changed your password.");
+
+        return modelAndView;
     }
 
 }
