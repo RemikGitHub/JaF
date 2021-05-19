@@ -25,7 +25,7 @@ public class EmailService {
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
             mimeMessageHelper.setTo(email);
             mimeMessageHelper.setSubject("Confirm your account!");
-            mimeMessageHelper.setText("<h2>JaF - Just a Forum</h2><h3>If you want to activate your account, click on the link.</h3>" + link, true);
+            mimeMessageHelper.setText("<h2>JaF - Just a Forum</h2><p>If you want to activate your account, click on the link. " + link + "</p>", true);
         } catch (MessagingException e) {
             e.printStackTrace();
         }
